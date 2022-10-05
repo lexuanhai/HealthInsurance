@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KaTtPHNiCTMR8QLuGjg7UuAdTt2YO1XMnXmr+IXYQxTnIydq+ORa2/9vxNJwStthyBADZfp4XWqxN06idiPhGQ==",
+  "dgSpecHash": "TBrzJly5xM95PDnNZiOsIpVGa5fTx8FjvVJY/BGrcEacb17cQzkHSUFH1iswGa5uwmvyLdiYVZ88TjrIGNQphQ==",
   "success": true,
-  "projectFilePath": "E:\\Hoc-Tap\\dien-thoai-05\\TECH\\TECH\\TECH.csproj",
+  "projectFilePath": "E:\\Hoc-Tap\\HealthInsurance\\TECH\\TECH\\TECH.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\emcua\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\emcua\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",

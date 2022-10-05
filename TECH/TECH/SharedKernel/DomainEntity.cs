@@ -7,7 +7,7 @@ namespace TECH.SharedKernel
 {
     public abstract class DomainEntity<T>
     {
-        public T id { get; set; }
+        public T Id { get; set; }
 
         /// <summary>
         /// True if domain entity has an identity
@@ -15,7 +15,7 @@ namespace TECH.SharedKernel
         /// <returns></returns>
         public bool IsTransient()
         {
-            return id.Equals(default(T));
+            return Id.Equals(default(T));
         }
     }
 }
