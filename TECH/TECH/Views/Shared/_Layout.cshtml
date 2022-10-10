@@ -1,14 +1,22 @@
 ﻿@using Microsoft.AspNetCore.Http
 @using Newtonsoft.Json
 @using TECH.Areas.Admin.Models
-@*@{
+@{
     var userString = Context.Session.GetString("UserInfor");
-    var user = new UserModelView();
+    var userAdminString = Context.Session.GetString("UserAdminInfor");
+    string userAccuracy = "";
+    var user = new EmpRegisterModelView();
     if (userString != null)
     {
-        user = JsonConvert.DeserializeObject<UserModelView>(userString);
+        user = JsonConvert.DeserializeObject<EmpRegisterModelView>(userString);
+        userAccuracy = "user";
     }
-}*@
+    else if (userAdminString != null)
+    {
+        user = JsonConvert.DeserializeObject<EmpRegisterModelView>(userString);
+        userAccuracy = "admin";
+    }
+}
 
 
 <!DOCTYPE html>
@@ -35,96 +43,124 @@
     <link rel="stylesheet" href="/public/admin/css/app.css">
     <link href="~/public/customer/bootstrap-sweetalert-master/dist/sweetalert.css" rel="stylesheet" />
     <style>
-            .back-ground-image{
-                   background: url(./image-side/cover.png);
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-        width: 100%;
-        display: inline-block;
-        height: 117px;
-            }
-            .content{
-                background-color: #add8e6;
-            }
-            .menu{
-                        text-align: center;
-        border-top: 2px solid #35429f;
-        border-bottom: 2px solid #35429f;
-        display: flex;
-        justify-content: center;
-        padding: 2px 0px;
-            }
-                     ul{
-                margin: 0;
-                padding: 0;
-              }
-            .leve-1 {
-              list-style-type: none;
+        .back-ground-image {
+            background: url(./image-side/cover.png);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            width: 100%;
+            display: inline-block;
+            height: 117px;
+        }
 
-                display: inline-block;
-                position: relative;
-                overflow: unset;
-            }
+        .content {
+            background-color: #add8e6;
+        }
 
-            li {
-                 float: left;
-                    position: relative;
-            }
-            li span{
-                    color: #35429f;
-                        font-weight: bold;
+        .menu {
+            text-align: center;
+            border-top: 2px solid #35429f;
+            border-bottom: 2px solid #35429f;
+            display: flex;
+            justify-content: center;
+            padding: 2px 0px;
+        }
 
-        position: absolute;
+        ul {
+            margin: 0;
+            padding: 0;
+        }
 
-            }
-            .fisrt span{
-                    position: absolute;
-           left: -18px;
-           top: -2px;
-            }
-                  .last span{
-                          position: absolute;
-        right: -18px;
-        top: -2px;
-                  }
-            li a {
-                       display: inline-block;
-        color: #35429f;
-        text-align: center;
-        padding: 5px 33px;
-        text-decoration: none;
-        font-weight: bold;
-        border-right: 2px solid #35429f;
-        line-height: 5px;
-        box-sizing: content-box;
-        font-size: 14px;
-            }
-               .last a{
-                   border:unset;
-               }
+        .leve-1 {
+            list-style-type: none;
+            display: inline-block;
+            position: relative;
+            overflow: unset;
+        }
 
-     /*       li:hover{
-              background-color: red;
-            }*/
+        li {
+            float: left;
+            position: relative;
+        }
 
-          /*  li:hover ul, li:hover ul:hover {
-                display: block !important;
-            }*/
-
-            .leve-2{
-               background-color: red !important;
-                display: none;
+            li span {
+                color: #35429f;
+                font-weight: bold;
                 position: absolute;
-                left: 0;
             }
-            .leve-2 li a{
-              border-right:unset;
-            }
-            .leve-2 li{
-                list-style-type: none;
 
+        .fisrt span {
+            position: absolute;
+            left: -18px;
+            top: -2px;
+        }
+
+        .last span {
+            position: absolute;
+            right: -18px;
+            top: -2px;
+        }
+
+        li a {
+            display: inline-block;
+            color: #35429f;
+            text-align: center;
+            padding: 5px 33px;
+            text-decoration: none;
+            font-weight: bold;
+            border-right: 2px solid #35429f;
+            line-height: 5px;
+            box-sizing: content-box;
+            font-size: 14px;
+        }
+
+        .last a {
+            border: unset;
+        }
+
+        /*       li:hover{
+                      background-color: red;
+                    }*/
+
+        /*  li:hover ul, li:hover ul:hover {
+                        display: block !important;
+                    }*/
+
+        .leve-2 {
+            background-color: red !important;
+            display: none;
+            position: absolute;
+            left: 0;
+        }
+
+            .leve-2 li a {
+                border-right: unset;
             }
+
+            .leve-2 li {
+                list-style-type: none;
+            }
+
+        input.error {
+            border-color: #f00 !important;
+        }
+
+        label.error {
+            clear: both;
+            color: #f00;
+            display: block;
+            text-align: left;
+            margin: unset;
+            padding: unset;
+            font-size: 13px;
+            font-weight: unset !important;
+            background: unset;
+        }
+
+        .form-group[class*='has-icon-'] .form-control-icon {
+            transform: unset !important;
+            top: 10% !important;
+        }
     </style>
     @RenderSection("Styles", required: false)
 </head>
@@ -136,7 +172,32 @@
             <div class="content">
                 <div class="back-ground-image"></div>
                 <div class="menu">
-                    <ul class="leve-1">
+                    @if (userAccuracy == "user")
+                    {
+                        <ul class="leve-1">
+                            <li class="fisrt">
+                                <span>|||</span>
+                                <a href="/Employ">Home</a>
+                            </li>
+                            <li>
+                                <a href="#">Employee Details</a>
+                            </li>
+                            <li><a href="#">Search</a></li>
+                            <li><a href="#">Order for insurance </a></li>
+                            <li><a href="/login-employ">Member</a></li>
+                            <li class="last">
+
+                                <a href="#">Log Out</a>
+                                <span>|||</span>
+                            </li>
+                        </ul>
+                    }else if (userAccuracy == "admin")
+                    {
+
+                    }
+                    else
+                    {
+                         <ul class="leve-1">
                         <li class="fisrt">
                             <span>|||</span>
                             <a href="#">Home</a>
@@ -147,13 +208,15 @@
                         <li><a href="#">Contact Us</a></li>
                         <li><a href="#">FeedBack</a></li>
                         <li><a href="#">News</a></li>
-                        <li><a href="#">Member</a></li>
+                        <li><a href="/login-employ">Member</a></li>
                         <li class="last">
 
                             <a href="#">Admin</a>
                             <span>|||</span>
                         </li>
                     </ul>
+                    }
+                   
                 </div>
                 @RenderBody()
 
@@ -162,12 +225,10 @@
             </div>
 
         </div>
-       
+
     </div>
     <!-------- END CONTENT -------->
     <!-------- FOOTER -------->
-    
-
     <!-------- END LOADER -------->
     <script src="/public/admin/js/jquery-3.4.1.js"></script>
     <script src="~/admin/plugins/jquery-validation/jquery.validate.min.js"></script>

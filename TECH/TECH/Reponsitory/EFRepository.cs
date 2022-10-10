@@ -9,9 +9,9 @@ using TECH.SharedKernel;
 
 namespace TECH.Reponsitory
 {
-    public interface IRepository<T, K> where T : class
+    public interface IRepository<T>
     {
-        T FindById(K id, params Expression<Func<T, object>>[] includeProperties);
+        //T FindById(K id, params Expression<Func<T, object>>[] includeProperties);
 
         T FindSingle(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties);
 
@@ -25,11 +25,11 @@ namespace TECH.Reponsitory
 
         void Remove(T entity);
 
-        void Remove(K id);
+        //void Remove(K id);
 
         void RemoveMultiple(List<T> entities);
     }
-    public class EFRepository<T, K> : IRepository<T, K>, IDisposable where T : DomainEntity<K>
+    public class EFRepository<T> : IRepository<T>, IDisposable where T :class
     {
         private readonly DataBaseEntityContext _context;
 
@@ -76,10 +76,10 @@ namespace TECH.Reponsitory
             return items.Where(predicate);
         }
 
-        public T FindById(K id, params Expression<Func<T, object>>[] includeProperties)
-        {
-            return FindAll(includeProperties).SingleOrDefault(x => x.Id.Equals(id));
-        }
+        //public T FindById(K id, params Expression<Func<T, object>>[] includeProperties)
+        //{
+        //    return FindAll(includeProperties).SingleOrDefault(x => x.Id.Equals(id));
+        //}
 
         public T FindSingle(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties)
         {
@@ -91,11 +91,11 @@ namespace TECH.Reponsitory
             _context.Set<T>().Remove(entity);
         }
 
-        public void Remove(K id)
-        {
-            var entity = FindById(id);
-            Remove(entity);
-        }
+        //public void Remove(K id)
+        //{
+        //    var entity = FindById(id);
+        //    Remove(entity);
+        //}
 
         public void RemoveMultiple(List<T> entities)
         {

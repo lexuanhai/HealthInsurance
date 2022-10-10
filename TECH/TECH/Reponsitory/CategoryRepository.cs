@@ -4,14 +4,14 @@
 
 //namespace TECH.Reponsitory
 //{
-//    public interface ICategoryRepository : IRepository<Category, int>
+//    public interface IEmpRegisterRepository : IRepository<EmpRegister>
 //    {
-       
+
 //    }
 
-//    public class CategoryRepository : EFRepository<Category, int>, ICategoryRepository
+//    public class EmpRegisterRepository : EFRepository<EmpRegister, int>, IEmpRegisterRepository
 //    {
-//        public CategoryRepository(DataBaseEntityContext context) : base(context)
+//        public EmpRegisterRepository(DataBaseEntityContext context) : base(context)
 //        {
 //        }
 //    }

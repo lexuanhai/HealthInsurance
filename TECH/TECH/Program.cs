@@ -24,7 +24,7 @@ builder.Services.AddDbContext<DataBaseEntityContext>(options =>
     options.UseSqlServer(connectstring);
 });
 builder.Services.AddScoped(typeof(IUnitOfWork), typeof(EFUnitOfWork));
-builder.Services.AddScoped(typeof(IRepository<,>), typeof(EFRepository<,>));
+builder.Services.AddScoped(typeof(IRepository<>), typeof(EFRepository<>));
 
 //builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 

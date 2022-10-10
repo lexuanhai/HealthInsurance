@@ -75,24 +75,26 @@
                     password: {
                         required: true,
                     }
-
                 },
                 messages:
                 {
                     username: {
-                        required: "Bạn chưa nhập mã xác thực",
+                        required: "Please enter your username",
                     },
                     password: {
-                        required: "Bạn chưa nhập mã xác thực",
+                        required: "Please enter your password",
                     }
                 },
                 submitHandler: function (form) {
+                    var userName = $("#usename").val();
+                    var password = $("#password").val();
                     $.ajax({
-                        url: '/Users/CheckAccuracy',
+                        url: '/Acount/LoginEmploy',
                         type: 'GET',
                         dataType: 'json',
                         data: {
-                            codeaccuracy: $("#verify").val()
+                            userName: userName,
+                            passWord:password
                         },
                         beforeSend: function () {
                             //Loading('show');
@@ -101,9 +103,8 @@
                             //Loading('hiden');
                         },
                         success: function (response) {
-                            if (response.success) {
-                                window.location.href = "/tao-mat-khau-moi";
-
+                            if (response.status) {
+                                window.location.href = "/Employ";
                             }
                             else {
                                 $(".results").show();
