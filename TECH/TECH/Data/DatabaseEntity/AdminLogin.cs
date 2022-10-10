@@ -8,8 +8,9 @@ using TECH.SharedKernel;
 namespace TECH.Data.DatabaseEntity
 {
     [Table("AdminLogin")]
-    public class AdminLogin : DomainEntity<int>
+    public class AdminLogin
     {
+        [Key]
         [Column(TypeName = "varchar(50)")]
         public string? UserName { get; set; }
         [Column(TypeName = "varchar(50)")]

@@ -8,32 +8,39 @@ using TECH.SharedKernel;
 namespace TECH.Data.DatabaseEntity
 {
     [Table("EmpRegister")]
-    public class Category
+    public class EmpRegister
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Empno { get; set; }
 
         [Column(TypeName = "varchar(250)")]
         public string? Designation { get; set; }
-        [Column(TypeName = "decimal(10,2)")]
+        public DateTime? JoinDate { get; set; }
+        [Column(TypeName = "decimal(10,0)")]
         public decimal? Salary { get; set; }
-        [Column(TypeName = "nvarchar(250)")]
+        [Column(TypeName = "varchar(50)")]
         public string? FirstName { get; set; }
 
-        [Column(TypeName = "varchar(250)")]
+        [Column(TypeName = "varchar(50)")]
         public string? LastName { get; set; }
-        [Column(TypeName = "varchar(250)")]
+        [Column(TypeName = "varchar(50)")]
         public string? UserName { get; set; }
-        [Column(TypeName = "varchar(250)")]
+        [Column(TypeName = "varchar(50)")]
         public string? PassWord { get; set; }
 
-        [Column(TypeName = "nvarchar(250)")]
+        [Column(TypeName = "varchar(150)")]
         public string? Address { get; set; }
-
-        public DateTime Joindate { get; set; }
-
-        public DateTime? updated_at { get; set; }
-
-        public virtual ICollection<Products> Products { get; set; }
+        [Column(TypeName = "varchar(50)")]
+        public string? ContactNo { get; set; }
+        [Column(TypeName = "varchar(50)")]
+        public string? State { get; set; }
+        [Column(TypeName = "varchar(50)")]
+        public string? Country { get; set; }
+        [Column(TypeName = "varchar(50)")]
+        public string? City { get; set; }
+        [Column(TypeName = "varchar(50)")]
+        public string? PolicyStatus { get; set; }
+        public int? PolicyId { get; set; }
     }
 }

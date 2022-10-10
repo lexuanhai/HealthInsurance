@@ -1,0 +1,117 @@
+﻿@{
+    ViewData["Title"] = "LoginEmployView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .box-login{
+        width:400px;
+        margin: 100px auto;
+        border: 1px solid #35429f;
+            padding-bottom: 60px;
+    }
+    .title{
+        color:#35429f;
+        font-weight: bold !important;
+    }
+    .title-box{
+       text-align: center;
+        background: #2fb5d2;
+            margin-bottom: 25px;
+            padding: 5px 0px;
+    }
+    .btn-submit{
+        border: 1px solid #35429f;
+          color:#35429f;
+        font-weight: bold !important;
+            text-align: right;
+    padding: 1px 10px;
+    border-radius: 4px;
+    float:right;
+    margin-top: 10px;
+    }
+    .txt-title{
+        padding-left: 20px;
+        display: flex;
+        align-items: center;
+    }
+</style>
+<div class="content-box">
+    <div class="box-login">
+        <form id="form-submit" action="#">
+        <p class="title title-box">Member Login</p>
+        <div class="form-group row">
+            <label for="first-name-icon" class="col-sm-3 title txt-title"> UserName </label>
+            <div class="col-sm-9" style="padding-right: 45px;">
+                    <input type="text" placeholder="User Name" id="username" name="username" class="form-control">
+                <label id="full_name-error" class="error" for="full_name" style="display: none;">Số điện thoại đã tồn tại</label>
+            </div>
+            <!---->
+        </div>
+        <div class="form-group row">
+            <label for="first-name-icon" class="col-sm-3 title txt-title">PassWord</label>
+            <div class="col-sm-9" style="padding-right: 45px;">
+                    <input type="text" placeholder="PassWord" id="password" name="password" class="form-control" autocomplete="off">
+                <label id="full_name-error" class="error" for="full_name" style="display: none;">Số điện thoại đã tồn tại</label>
+            </div>
+            <!---->
+        </div>
+        <div class="form-group" style="text-align: right;padding-right: 33px;">
+            <button type="submit" class="btn-submit">Login</button>
+        </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#form-submit").validate({
+                rules:
+                {
+                    username: {
+                        required: true,
+                    },
+                    password: {
+                        required: true,
+                    }
+
+                },
+                messages:
+                {
+                    username: {
+                        required: "Bạn chưa nhập mã xác thực",
+                    },
+                    password: {
+                        required: "Bạn chưa nhập mã xác thực",
+                    }
+                },
+                submitHandler: function (form) {
+                    $.ajax({
+                        url: '/Users/CheckAccuracy',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {
+                            codeaccuracy: $("#verify").val()
+                        },
+                        beforeSend: function () {
+                            //Loading('show');
+                        },
+                        complete: function () {
+                            //Loading('hiden');
+                        },
+                        success: function (response) {
+                            if (response.success) {
+                                window.location.href = "/tao-mat-khau-moi";
+
+                            }
+                            else {
+                                $(".results").show();
+                            }
+                        }
+                    })
+                }
+            });
+        })
+    </script>
+    }

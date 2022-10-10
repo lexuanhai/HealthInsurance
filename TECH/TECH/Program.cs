@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TECH.Data.DatabaseEntity;
 using TECH.Reponsitory;
-using TECH.Service;
+//using TECH.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,36 +26,9 @@ builder.Services.AddDbContext<DataBaseEntityContext>(options =>
 builder.Services.AddScoped(typeof(IUnitOfWork), typeof(EFUnitOfWork));
 builder.Services.AddScoped(typeof(IRepository<,>), typeof(EFRepository<,>));
 
-builder.Services.AddScoped<IUsersRepository, UsersRepository>();
-builder.Services.AddScoped<IContractsRepository, ContractsRepository>();
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
-builder.Services.AddScoped<IPostsRepository, PostsRepository>();
-builder.Services.AddScoped<IOrdersRepository, OrdersRepository>();
-builder.Services.AddScoped<IReviewsRepository, ReviewsRepository>();
-builder.Services.AddScoped<ICityRepository, CityRepository>();
-builder.Services.AddScoped<IDistrictsRepository, DistrictsRepository>();
-builder.Services.AddScoped<IWardsRepository, WardsRepository>();
-builder.Services.AddScoped<IFeeRepository, FeeRepository>();
-builder.Services.AddScoped<ICartsRepository, CartsRepository>();
-builder.Services.AddScoped<IOrderDetailsRepository, OrderDetailsRepository>();
-builder.Services.AddScoped<IAdvertisementRepository, AdvertisementRepository>();
-builder.Services.AddScoped<ISidersRepository, SidersRepository>();
+//builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 
-builder.Services.AddScoped<IAppUserService, AppUserService>();
-builder.Services.AddScoped<IContractsService, ContractsService>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddScoped<IProductsService, ProductsService>();
-builder.Services.AddScoped<IPostsService, PostsService>();
-builder.Services.AddScoped<IOrdersService, OrdersService>();
-builder.Services.AddScoped<IReviewsService, ReviewsService>();
-builder.Services.AddScoped<ICityService, CityService>();
-builder.Services.AddScoped<IDistrictsService, DistrictsService>();
-builder.Services.AddScoped<IWardsService, WardsService>();
-builder.Services.AddScoped<IFeeService, FeeService>();
-builder.Services.AddScoped<ICartsService, CartsService>();
-builder.Services.AddScoped<IAdvertisementService, AdvertisementService>();
-builder.Services.AddScoped<ISidersService, SidersService>();
+//builder.Services.AddScoped<IAppUserService, AppUserService>();
 
 //builder.Services.AddMemoryCache();
 
@@ -248,10 +221,17 @@ app.UseEndpoints(endpoints =>
     pattern: "/lich-su-don-hang",
     defaults: new { controller = "Carts", action = "HistoryOrder" });
 
+
+
+
     endpoints.MapControllerRoute(
-  name: "LienHeWe",
-  pattern: "/lien-he-voi-chung-toi",
-  defaults: new { controller = "Home", action = "Contact" });
+  name: "DangNhapEmploy",
+  pattern: "/login-employ",
+  defaults: new { controller = "Acount", action = "LoginEmployView" });
+
+
+
+
 
 
     endpoints.MapControllerRoute(
