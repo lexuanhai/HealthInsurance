@@ -1,0 +1,196 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using TECH.Areas.Admin.Models
+@model List<PoliciesModelView>
+
+<style>
+    /*.box-form {
+        width: 500px;
+       margin: 60px auto;
+        padding-bottom: 60px;
+    }
+
+    .title {
+        color: #35429f;
+        font-weight: bold !important;
+    }
+
+    .title-box {
+            text-align: center;
+    margin-bottom: 60px;
+    padding: 5px 0px;
+       font-size: 25px;
+    color: #323ef8;
+    }
+
+    .btn-submit {
+        border: 1px solid #35429f;
+        color: #35429f;
+        font-weight: bold !important;
+        text-align: right;
+        padding: 1px 10px;
+        border-radius: 4px;
+        margin-top: 10px;
+    }
+
+    .txt-title {
+        padding-left: 20px;
+        display: flex;
+        align-items: center;
+    }*/
+    .content-box{
+        width: 70%;
+        margin: auto;
+    }
+    table{
+       background: #fff;
+    }
+    table thead th{
+         font-size: 14px;
+         font-weight: bold;
+    }
+    table tbody td{
+        color: #35429f;
+        font-size: 14px;
+        font-weight: bold;
+
+    }
+    .title-txt{
+       text-align: center;
+    font-weight: bold;
+    color: #35429f;
+    font-size: 25px;
+    margin-top: 15px;
+    }
+    .apply-company{
+       text-align: center;
+       display:none;
+    }
+    .company-content .txt-title{
+        font-weight: bold;
+        color: #35429f;
+        text-align:left;
+    }
+    .company-content{
+         
+    min-width: 350px;
+    background: #fff;
+    display: inline-block;
+    padding: 10px;
+
+    }
+    .company-content p{
+        font-weight: bold;
+        color: #35429f;
+    }
+    .company-content .txt-content{
+        text-align: left;
+    }
+</style>
+<div class="content-box">
+    <p class="title-txt">Policy Details</p>
+    @if (Model != null && Model.Count > 0)
+    {
+        <table id="table1" class="table table-striped">
+            <thead>
+                <tr>
+                    <th style="width:5%">PolicyId</th>
+                    <th width="20%">PolicyName</th>
+                    <th width="20%">PolicyDesc</th>
+                    <th width="15%">Amount</th>
+                    <th width="10%">EMI</th>
+                    <th width="10%">CompanyName</th>
+                    <th width="10%">CompanyDetails</th>
+                </tr>
+
+            </thead>
+            <tbody id="tblData">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.PolicyId</td>
+                        <td>@item.PolicyName</td>
+                        <td>@item.PolicyDesc</td>
+                        <td>@item.Amount</td>
+                        <td>@item.Emi</td>
+                        <td>@(item.CompanyDetails != null && !string.IsNullOrEmpty(item.CompanyDetails.CompanyName) ? item.CompanyDetails.CompanyName:"")</td>
+                        <td>
+                            @if (item.CompanyDetails != null && item.CompanyDetails.CompanyId > 0)
+                            {
+                                <a href="javascript:void(0)" onclick="companyDetail(@item.CompanyDetails.CompanyId)" style="text-decoration: underline;">CompanyDetails</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="apply-company">
+           
+            <div class="company-content">   
+                  <p>Company Details</p>
+            </div>
+        </div>
+    }
+</div>
+
+
+@section Scripts{
+    <script src="~/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".btn-cancel").click(function() {
+                window.location.reload();
+            })
+
+        })
+        function companyDetail(companyId) {
+            $.ajax({
+                url: '/CompanyDetails/GetComanyById',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    id: companyId
+                },
+                beforeSend: function() {
+                    Loading('show');
+                },
+                complete: function() {
+                    Loading('hiden');
+                },
+                success: function(response) {
+                    if (response.data != null) {
+                        $(".apply-company").show();
+                        var html = "";
+                        var item = response.data;
+                        html += "<div class='form-group row'>" +
+                                "<label class='col-sm-4 title txt-title'>CompanyId</label>" +
+                                "<label class='col-sm-8 title txt-content'>" + item.CompanyId + "</label>" +
+                                "</div>";
+                            html += "<div class='form-group row'>" +
+                                "<label class='col-sm-4 title txt-title'>CompanyName</label>" +
+                                "<label class='col-sm-8 title txt-content'>" + item.CompanyName + "</label>" +
+                                "</div>";
+                            html += "<div class='form-group row'>" +
+                                "<label class='col-sm-4 title txt-title'>Address</label>" +
+                                "<label class='col-sm-8 title txt-content'>" + item.Address + "</label>" +
+                                "</div>";
+                            html += "<div class='form-group row'>" +
+                                "<label class='col-sm-4 title txt-title'>Phone</label>" +
+                                "<label class='col-sm-8 title txt-content'>" + item.Phone + "</label>" +
+                                "</div>";
+                            html += "<div class='form-group row'>" +
+                                "<label class='col-sm-4 title txt-title'>CompanyURL</label>" +
+                                "<label class='col-sm-8 title txt-content'>" + item.CompanyURL + "</label>" +
+                                "</div>";
+                        $(".company-content").append(html);
+                    }
+                }
+            })
+        }
+    </script>
+    }
+
+

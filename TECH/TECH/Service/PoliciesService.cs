@@ -22,13 +22,16 @@ namespace TECH.Service
     public class PoliciesService : IPoliciesService
     {
         private readonly IPoliciesRepository _policiesRepository;
+        private readonly ICompanyDetailsService _companyDetailsService;
         private readonly IEmpRegisterRepository _empRegisterRepository;
         private IUnitOfWork _unitOfWork;
         public PoliciesService(IPoliciesRepository policiesRepository,
+            ICompanyDetailsService companyDetailsService,
             IEmpRegisterRepository empRegisterRepository,
             IUnitOfWork unitOfWork)
         {
             _policiesRepository = policiesRepository;
+            _companyDetailsService = companyDetailsService;
             _empRegisterRepository = empRegisterRepository;
             _unitOfWork = unitOfWork;
         }       
@@ -44,7 +47,6 @@ namespace TECH.Service
                 {
                     var appPolicies = new Policies
                     {
-                        PolicyId = view.PolicyId,
                         PolicyName = view.PolicyName,
                         PolicyDesc = view.PolicyDesc,
                         Amount = view.Amount,
@@ -98,6 +100,16 @@ namespace TECH.Service
                 CompanyId = p.CompanyId,
                 HospitalId = p.HospitalId,
             }).ToList();
+            if (data != null && data.Count> 0)
+            {
+                foreach (var item in data)
+                {
+                    if (item.CompanyId.HasValue && item.CompanyId.Value > 0)
+                    {
+                        item.CompanyDetails = _companyDetailsService.GetByid(item.CompanyId.Value);
+                    }
+                }
+            }
             return data;
         }
 

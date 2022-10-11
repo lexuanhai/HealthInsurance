@@ -15,9 +15,9 @@
     }
     else if (userAdminString != null)
     {
-        user = JsonConvert.DeserializeObject<EmpRegisterModelView>(userString);
+        user = JsonConvert.DeserializeObject<EmpRegisterModelView>(userAdminString);
         userAccuracy = "admin";
-        isLogin = 1;
+        isLogin = 2;
     }
 }
 
@@ -209,7 +209,12 @@
                                     <li><a href="/policy-details">Policy Details</a></li>
                                 </ul>
                             </li>
-                            <li><a href="#">Search</a></li>
+                            <li>
+                                <a href="/policy-details">Search</a>
+                               @* <ul class="leve-2">
+                                    <li><a href="/policy-details">Policy Details</a></li>
+                                </ul>*@
+                            </li>
                             <li><a href="#">Order for insurance </a></li>
                             <li class="last">
 
@@ -220,7 +225,42 @@
                     }
                     else if (userAccuracy == "admin")
                     {
+                        <ul class="leve-1">
+                            <li class="fisrt">
+                                <span>|||</span>
+                                <a href="/Employ">Home</a>
+                            </li>
+                            <li>
+                                <a href="#">Add Resource</a>
+                                <ul class="leve-2">
+                                    <li><a href="/add-company">Add Company</a></li>
+                                    <li><a href="/add-policy">Add Policy </a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Employee Support</a>
+                                <ul class="leve-2">
+                                    <li><a href="/employee-detail">Employee Detail</a></li>
+                                    <li><a href="/employee-register">Employee Register </a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Search</a>
+                                <ul class="leve-2">
+                                    <li><a href="/update-employee">Update Employee</a></li>
+                                    <li><a href="/change-password">Change Password </a></li>
+                                    <li><a href="/policy-details">Policy Details</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Request Status</a>
+                            </li>
+                            <li class="last">
 
+                                <a href="javascript:void(0)" class="log-out">Log Out</a>
+                                <span>|||</span>
+                            </li>
+                        </ul>
                     }
                     else
                     {
@@ -238,7 +278,7 @@
                             <li><a href="/login-employ">Member</a></li>
                             <li class="last">
 
-                                <a href="#">Admin</a>
+                                <a href="/login-admin">Admin</a>
                                 <span>|||</span>
                             </li>
                         </ul>

@@ -1,0 +1,208 @@
+﻿
+@{
+    ViewData["Title"] = "AddView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .box-form {
+        width: 500px;
+        margin: 60px auto;
+        padding-bottom: 60px;
+    }
+
+    .title {
+        color: #35429f;
+        font-weight: bold !important;
+    }
+
+    .title-box {
+        text-align: center;
+        margin-bottom: 60px;
+        padding: 5px 0px;
+        font-size: 25px;
+        color: #323ef8;
+    }
+
+    .btn-submit {
+        border: 1px solid #35429f;
+        color: #35429f;
+        font-weight: bold !important;
+        text-align: right;
+        padding: 1px 10px;
+        border-radius: 4px;
+        margin-top: 10px;
+    }
+
+    .txt-title {
+        padding-left: 20px;
+        display: flex;
+        align-items: center;
+    }
+</style>
+<div class="content-box">
+    <div class="box-form">
+        <form id="form-submit" action="#">
+            <p class="title title-box">Add Policy Form</p>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title">Policy Type Name: </label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <input type="text" placeholder="Policy Type Name" id="PolicyName" name="PolicyName" class="form-control">
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title">Policy Desc</label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <input name="PolicyDesc" id="PolicyDesc" type="text" placeholder="PolicyDesc" class="form-control">
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title"> Policy Amount: </label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <input type="number" placeholder="Policy Amount" id="Amount" name="Amount" class="form-control">
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title">Policy EMI:</label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <input type="number" placeholder="Policy EMI" id="Emi" name="Emi" class="form-control" autocomplete="off">
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title">Company Id:</label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <select id="CompanySelect" class="form-control">
+                        <option value="">Choose Company</option>
+                    </select>
+                </div>
+                <!---->
+            </div>
+             <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title">Medical Id:</label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <input type="text" placeholder="Medical Id" id="HospitalId" name="HospitalId" class="form-control" autocomplete="off">
+                </div>
+                <!---->
+            </div>
+            <div class="form-group" style="margin-top: 30px;text-align: center;">
+                <button type="submit" class="btn-submit">Add</button>
+                <button type="button" class="btn-submit btn-cancel">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".btn-cancel").click(function () {
+                window.location.reload();
+            })
+            GetAllCompany();
+            $("#form-submit").validate({
+                rules:
+                {
+                    
+                    PolicyName: {
+                        required: true,
+                    },
+                    PolicyDesc: {
+                        required: true,
+                    },
+                    Amount: {
+                        required: true,
+                    },
+                    Emi: {
+                        required: true,
+                    },
+                    HospitalId: {
+                        required: true,
+                    }
+                },
+                messages:
+                {
+                    PolicyName: {
+                        required: "Please enter your Policy Name",
+                    },
+                    PolicyDesc: {
+                        required: "Please enter your Policy Desc",
+                    },
+                    Amount: {
+                        required: "Please enter your Amount",
+                    },
+                    Emi: {
+                        required: "Please enter your Emi",
+                    },
+                    HospitalId: {
+                        required: "Please enter your HospitalId",
+                    }
+                },
+                submitHandler: function (form) {
+                    var ployModelView = {
+                        PolicyName: $("#PolicyName").val(),
+                        PolicyDesc: $("#PolicyDesc").val(),
+                        Amount: $("#Amount").val(),
+                        Emi: $("#Emi").val(),
+                        HospitalId: $("#HospitalId").val(),
+                        CompanyId: $("#CompanySelect").val()
+                    }
+                    $.ajax({
+                        url: '/Policies/AddPolicy',
+                        type: 'Post',
+                        dataType: 'json',
+                        data: {
+                            policiesModelView: ployModelView
+                        },
+                        beforeSend: function () {
+                            Loading('show');
+                        },
+                        complete: function () {
+                            Loading('hiden');
+                        },
+                        success: function (response) {
+                            if (response.status) {
+                                swal("Success", "Add successful", "success");
+                            }
+                            else {
+                                swal("Error!", "Add failed", "error");
+                            }
+                        }
+                    })
+                }
+            });
+
+        })
+        function GetAllCompany(){
+            $.ajax({
+                url: '/CompanyDetails/GetAll',
+                type: 'GET',
+                dataType: 'json',
+                beforeSend: function () {
+                    //Loading('show');
+                },
+                complete: function () {
+                    //Loading('hiden');
+                },
+                success: function (response) {
+                    if (response.data != null && response.data.length > 0) {
+                        var html = "<option value =\"\">Choose Company</option>";
+                        if (response.data != null && response.data.length > 0) {
+                            for (var i = 0; i < response.data.length; i++) {
+                                var item = response.data[i];
+                                html += "<option value =" + item.CompanyId + ">" + item.CompanyName + "</option>";
+                            }
+                        }
+                        $("#CompanySelect").html(html);
+                    }
+                }
+            })
+        }
+    </script>
+    }
+

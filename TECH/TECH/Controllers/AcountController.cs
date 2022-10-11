@@ -10,12 +10,15 @@ namespace TECH.Controllers
     public class AcountController : Controller
     {
         private readonly IEmpRegisterService _empRegisterService;
+        private readonly IAdminLoginService _adminLoginService;
         public IHttpContextAccessor _httpContextAccessor;
         public AcountController(IEmpRegisterService empRegisterService,
+            IAdminLoginService adminLoginService,
             IHttpContextAccessor httpContextAccessor)
         {
             _empRegisterService = empRegisterService;
             _httpContextAccessor = httpContextAccessor;
+            _adminLoginService = adminLoginService;
         }
 
         public IActionResult Index()
@@ -48,15 +51,31 @@ namespace TECH.Controllers
                 status = false
             });
         }
-        public IActionResult LoginEmployAdmin()
+        public IActionResult LoginAdminView()
         {
             return View();
         }
         [HttpGet]
-        public JsonResult LoginAdmin()
+        public JsonResult LoginAdmin(string userName, string passWord)
         {
-            var data = "";
-            return Json(new { data = data });
+            bool status = false;
+            if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(passWord))
+            {
+                var model = _adminLoginService.Login(userName, passWord);
+                if (model != null)
+                {
+                    _httpContextAccessor.HttpContext.Session.SetString("UserAdminInfor", JsonConvert.SerializeObject(model));
+                    return Json(new
+                    {
+                        status = true,
+                        isEmploy = true
+                    });
+                }
+            }
+            return Json(new
+            {
+                status = false
+            });
         }
         [HttpGet]
         public JsonResult LogOut()

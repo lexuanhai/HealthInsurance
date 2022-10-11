@@ -1,0 +1,238 @@
+﻿
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .box-form {
+        width: 500px;
+       margin: 60px auto;
+        padding-bottom: 60px;
+    }
+
+    .title {
+        color: #35429f;
+        font-weight: bold !important;
+    }
+
+    .title-box {
+            text-align: center;
+    margin-bottom: 60px;
+    padding: 5px 0px;
+       font-size: 25px;
+    color: #323ef8;
+    }
+
+    .btn-submit {
+        border: 1px solid #35429f;
+        color: #35429f;
+        font-weight: bold !important;
+        text-align: right;
+        padding: 1px 10px;
+        border-radius: 4px;
+        margin-top: 10px;
+    }
+
+    .txt-title {
+        padding-left: 20px;
+        display: flex;
+        align-items: center;
+    }
+</style>
+<div class="content-box">
+    <div class="box-form">
+        <form id="form-submit" action="#">
+            <input type="hidden" id="employid" value="@Model.Empno"/>
+            <p class="title title-box">Order for insurance Form</p>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-3 title txt-title"> First Name </label>
+                <div class="col-sm-9" style="padding-right: 45px;">
+                    <input type="text" placeholder="First Name" id="FirstName" name="FirstName" class="form-control">
+                    <label id="full_name-error" class="error" for="full_name" style="display: none;">Số điện thoại đã tồn tại</label>
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-3 title txt-title">Last Name</label>
+                <div class="col-sm-9" style="padding-right: 45px;">
+                    <input type="text" placeholder="Last Name" id="LastName" name="LastName" class="form-control" autocomplete="off">
+                    <label id="full_name-error" class="error" for="full_name" style="display: none;">Số điện thoại đã tồn tại</label>
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-3 title txt-title"> UserName </label>
+                <div class="col-sm-9" style="padding-right: 45px;">
+                    <input type="text" placeholder="User Name" id="UserName" name="UserName" class="form-control" >
+                    <label id="full_name-error" class="error" for="full_name" style="display: none;">Số điện thoại đã tồn tại</label>
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-3 title txt-title">Password</label>
+                <div class="col-sm-9" style="padding-right: 45px;">
+                    <input type="password" placeholder="Password" id="Password" name="Password" class="form-control" autocomplete="off">
+                    <label id="full_name-error" class="error" for="full_name" style="display: none;">Số điện thoại đã tồn tại</label>
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-3 title txt-title"> Address</label>
+                <div class="col-sm-9" style="padding-right: 45px;">
+                    <textarea name="Address" id="Address" rows="2" placeholder="Address" class="form-control"></textarea>
+                    <label id="full_name-error" class="error" for="full_name" style="display: none;">Số điện thoại đã tồn tại</label>
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-3 title txt-title"> Contact No </label>
+                <div class="col-sm-9" style="padding-right: 45px;">
+                    <input type="text" placeholder="Contact No" id="ContactNo" name="ContactNo" class="form-control">
+                    <label id="full_name-error" class="error" for="full_name" style="display: none;">Số điện thoại đã tồn tại</label>
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-3 title txt-title">State</label>
+                <div class="col-sm-9" style="padding-right: 45px;">
+                    <input type="text" placeholder="State" id="State" name="State" class="form-control" autocomplete="off">
+                    <label id="full_name-error" class="error" for="full_name" style="display: none;">Số điện thoại đã tồn tại</label>
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-3 title txt-title"> Country </label>
+                <div class="col-sm-9" style="padding-right: 45px;">
+                    <input type="text" placeholder="Country" id="Country" name="Country" class="form-control">
+                    <label id="full_name-error" class="error" for="full_name" style="display: none;">Số điện thoại đã tồn tại</label>
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-3 title txt-title">City</label>
+                <div class="col-sm-9" style="padding-right: 45px;">
+                    <input type="text" placeholder="City" id="City" name="City" class="form-control" autocomplete="off">
+                    <label id="full_name-error" class="error" for="full_name" style="display: none;">Số điện thoại đã tồn tại</label>
+                </div>
+                <!---->
+            </div>
+            <div class="form-group" style="text-align: center;margin-top: 30px;">
+                <button type="submit" class="btn-submit">ADD</button>
+                <button type="button" class="btn-submit btn-cancel">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".btn-cancel").click(function(){
+                window.location.reload();
+            })
+            $("#form-submit").validate({
+                rules:
+                {
+                    FirstName: {
+                        required: true,
+                    },
+                    LastName: {
+                        required: true,
+                    },
+                    UserName: {
+                        required: true,
+                    },
+                    Password: {
+                        required: true,
+                    },
+                    Address: {
+                        required: true,
+                    },
+                    ContactNo: {
+                        required: true,
+                    },
+                    State: {
+                        required: true,
+                    },
+                    Country: {
+                        required: true,
+                    },
+                    City: {
+                        required: true,
+                    }
+                },
+                messages:
+                {
+                    FirstName: {
+                        required: "Please enter your FirstName",
+                    },
+                    LastName: {
+                        required: "Please enter your LastName",
+                    },
+                     UserName: {
+                        required: "Please enter your UserName",
+                    },
+                    Password: {
+                        required: "Please enter your Password",
+                    },
+                    Address: {
+                        required: "Please enter your Address",
+                    },
+                    ContactNo: {
+                        required: "Please enter your ContactNo",
+                    },
+                    State: {
+                        required: "Please enter your State",
+                    },
+                    Country: {
+                        required: "Please enter your Country",
+                    },
+                    City: {
+                         required: "Please enter your City",
+                    }
+                },
+                submitHandler: function (form) {
+                    var userInfor ={
+                        FirstName:$("#FirstName").val(),
+                        LastName:$("#LastName").val(),
+                        UserName:$("#UserName").val(),
+                        PassWord:$("#Password").val(),
+                        Address:$("#Address").val(),
+                        ContactNo:$("#ContactNo").val(),
+                        State:$("#State").val(),
+                        Country:$("#Country").val(),
+                        City:$("#City").val(),
+                        Empno:$("#employid").val()
+                    }
+                    $.ajax({
+                        url: '/Employee/Update',
+                        type: 'Post',
+                        dataType: 'json',
+                        data: {
+                            empRegisterModelView: userInfor
+                        },
+                        beforeSend: function () {
+                            Loading('show');
+                        },
+                        complete: function () {
+                            Loading('hiden');
+                        },
+                        success: function (response) {
+                            if (response.status) {                                
+                                 swal("Success", "Update successful", "success");
+                            }
+                            else {
+                               swal("Error!", "Update Employ failed", "error");
+                            }
+                        }
+                    })
+                }
+            });
+        })
+    </script>
+    }
+
+

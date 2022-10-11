@@ -14,8 +14,9 @@ namespace TECH.Service
     public interface ICompanyDetailsService
     {
         void Save();
+        int Add(CompanyDetailsModelView view);
         CompanyDetailsModelView GetByid(int id);
-
+        List<CompanyDetailsModelView> GetAll();
     }
 
     public class CompanyDetailsService : ICompanyDetailsService
@@ -76,6 +77,16 @@ namespace TECH.Service
             }
             return 0;
 
+        }
+        public List<CompanyDetailsModelView> GetAll()
+        {
+            var data = _companyDetailsRepository.FindAll().Select(c=> new CompanyDetailsModelView()
+            {
+                CompanyId = c.CompanyId,
+                CompanyName = c.CompanyName
+            }).ToList();
+            
+            return data;
         }
     }
 }

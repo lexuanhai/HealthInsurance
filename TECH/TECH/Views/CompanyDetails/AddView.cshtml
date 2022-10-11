@@ -1,0 +1,157 @@
+﻿
+@{
+    ViewData["Title"] = "AddView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .box-form {
+        width: 500px;
+        margin: 60px auto;
+        padding-bottom: 60px;
+    }
+
+    .title {
+        color: #35429f;
+        font-weight: bold !important;
+    }
+
+    .title-box {
+        text-align: center;
+        margin-bottom: 60px;
+        padding: 5px 0px;
+        font-size: 25px;
+        color: #323ef8;
+    }
+
+    .btn-submit {
+        border: 1px solid #35429f;
+        color: #35429f;
+        font-weight: bold !important;
+        text-align: right;
+        padding: 1px 10px;
+        border-radius: 4px;
+        margin-top: 10px;
+    }
+
+    .txt-title {
+        padding-left: 20px;
+        display: flex;
+        align-items: center;
+    }
+</style>
+<div class="content-box">
+    <div class="box-form">
+        <form id="form-submit" action="#">
+            <p class="title title-box">Add Insurence Company Details Form</p>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title"> Company Name </label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <input type="text" placeholder="Company Name" id="CompanyName" name="CompanyName" class="form-control">
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title">Address</label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <textarea name="Address" id="Address" rows="2" placeholder="Address" class="form-control"></textarea>
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title"> Phone no: </label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <input type="text" placeholder="Phone" id="Phone" name="Phone" class="form-control">
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title">Company URL:</label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <input type="text" placeholder="Company URL" id="CompanyURL" name="CompanyURL" class="form-control" autocomplete="off">
+                </div>
+                <!---->
+            </div>          
+            <div class="form-group" style="margin-top: 30px;text-align: right; padding-right: 35px;">
+                <button type="submit" class="btn-submit">Add</button>
+                <button type="button" class="btn-submit btn-cancel">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".btn-cancel").click(function () {
+                window.location.reload();
+            })
+            $("#form-submit").validate({
+                rules:
+                {
+                    CompanyName: {
+                        required: true,
+                    },
+                    Address: {
+                        required: true,
+                    },
+                    Phone: {
+                        required: true,
+                    },
+                    CompanyURL: {
+                        required: true,
+                    }
+                },
+                messages:
+                {
+                    CompanyName: {
+                        required: "Please enter your Company Name",
+                    },
+                    Address: {
+                        required: "Please enter your Address",
+                    },
+                    Phone: {
+                        required: "Please enter your Phone No",
+                    },
+                    CompanyURL: {
+                        required: "Please enter your Company URL",
+                    }
+                },
+                submitHandler: function (form) {
+                    var companyDetailsModelView = {
+                        CompanyName: $("#CompanyName").val(),
+                        Address: $("#Address").val(),
+                        Phone: $("#Phone").val(),
+                        CompanyURL: $("#CompanyURL").val()
+                    }
+                    $.ajax({
+                        url: '/CompanyDetails/AddCompany',
+                        type: 'Post',
+                        dataType: 'json',
+                        data: {
+                            companyDetailsModelView: companyDetailsModelView
+                        },
+                        beforeSend: function () {
+                            Loading('show');
+                        },
+                        complete: function () {
+                            Loading('hiden');
+                        },
+                        success: function (response) {
+                            if (response.status) {
+                                swal("Success", "Add successful", "success");
+                            }
+                            else {
+                                swal("Error!", "Add failed", "error");
+                            }
+                        }
+                    })
+                }
+            });
+        })
+    </script>
+    }
+
+

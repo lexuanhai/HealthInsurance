@@ -27,9 +27,16 @@ builder.Services.AddDbContext<DataBaseEntityContext>(options =>
 builder.Services.AddScoped(typeof(IUnitOfWork), typeof(EFUnitOfWork));
 builder.Services.AddScoped(typeof(IRepository<>), typeof(EFRepository<>));
 
+builder.Services.AddScoped<IPoliciesRepository, PoliciesRepository>();
 builder.Services.AddScoped<IEmpRegisterRepository, EmpRegisterRepository>();
+builder.Services.AddScoped<ICompanyDetailsRepository, CompanyDetailsRepository>();
+builder.Services.AddScoped<IAdminLoginRepository, AdminLoginRepository>();
 
+builder.Services.AddScoped<IAdminLoginService, AdminLoginService>();
 builder.Services.AddScoped<IEmpRegisterService, EmpRegisterService>();
+builder.Services.AddScoped<IPoliciesService, PoliciesService>();
+builder.Services.AddScoped<ICompanyDetailsService, CompanyDetailsService>();
+
 
 //builder.Services.AddMemoryCache();
 
@@ -59,6 +66,10 @@ app.UseEndpoints(endpoints =>
       pattern: "/login-employ",
       defaults: new { controller = "Acount", action = "LoginEmployView" });
     endpoints.MapControllerRoute(
+     name: "DangNhapAdmin",
+     pattern: "/login-admin",
+     defaults: new { controller = "Acount", action = "LoginAdminView" });
+    endpoints.MapControllerRoute(
       name: "AboutUs",
       pattern: "/about-us",
       defaults: new { controller = "Home", action = "AboutUs" });
@@ -75,7 +86,22 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllerRoute(
     name: "policydetails",
     pattern: "/policy-details",
-    defaults: new { controller = "Home", action = "AboutUs" });
+    defaults: new { controller = "Policies", action = "Index" });
+
+    endpoints.MapControllerRoute(
+    name: "orderforinsurance",
+    pattern: "/order-for-insurance",
+    defaults: new { controller = "PolicyRequestDetails", action = "Add" });
+
+    endpoints.MapControllerRoute(
+   name: "AddCompany",
+   pattern: "/add-company",
+   defaults: new { controller = "CompanyDetails", action = "AddView" });
+
+    endpoints.MapControllerRoute(
+  name: "addpolicy",
+  pattern: "/add-policy",
+  defaults: new { controller = "Policies", action = "AddView" });
 
     endpoints.MapControllerRoute(
         name: "default",
