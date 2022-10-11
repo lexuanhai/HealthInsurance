@@ -6,15 +6,18 @@
     var userAdminString = Context.Session.GetString("UserAdminInfor");
     string userAccuracy = "";
     var user = new EmpRegisterModelView();
+    int isLogin = 0;
     if (userString != null)
     {
         user = JsonConvert.DeserializeObject<EmpRegisterModelView>(userString);
         userAccuracy = "user";
+        isLogin = 1;
     }
     else if (userAdminString != null)
     {
         user = JsonConvert.DeserializeObject<EmpRegisterModelView>(userString);
         userAccuracy = "admin";
+        isLogin = 1;
     }
 }
 
@@ -117,24 +120,31 @@
         .last a {
             border: unset;
         }
+         li:hover ul, li:hover ul:hover {
+            display: block !important;
+        }
 
-        /*       li:hover{
-                      background-color: red;
-                    }*/
-
-        /*  li:hover ul, li:hover ul:hover {
-                        display: block !important;
-                    }*/
-
-        .leve-2 {
-            background-color: red !important;
+        .leve-2 {            
             display: none;
             position: absolute;
             left: 0;
+                background: #fff;
         }
+        .leve-2 li:hover,.leve-2 li:hover a{
+            color:white;
+             background: #35429f;
+        }
+        .leve-2 li{
+                    width: 100%;
+           text-align: left;
 
+        padding: 5px 0px;
+
+        }
             .leve-2 li a {
-                border-right: unset;
+                      border-right: unset;
+        padding: 5px 0px !important;
+        padding-left: 20px !important;
             }
 
             .leve-2 li {
@@ -156,10 +166,22 @@
             font-weight: unset !important;
             background: unset;
         }
+        .custom-input{
+            font-size:14px;
+        }
 
         .form-group[class*='has-icon-'] .form-control-icon {
             transform: unset !important;
             top: 10% !important;
+        }
+        .content-box{
+            min-height: 500px;
+        }
+        .title-content-box{
+                    text-align: center;
+        padding-top: 100px;
+        font-size: 20px;
+        font-weight: bold;
         }
     </style>
     @RenderSection("Styles", required: false)
@@ -181,42 +203,47 @@
                             </li>
                             <li>
                                 <a href="#">Employee Details</a>
+                                <ul class="leve-2">
+                                    <li><a href="/update-employee">Update Employee</a></li>
+                                    <li><a href="/change-password">Change Password </a></li>
+                                    <li><a href="/policy-details">Policy Details</a></li>
+                                </ul>
                             </li>
                             <li><a href="#">Search</a></li>
                             <li><a href="#">Order for insurance </a></li>
-                            <li><a href="/login-employ">Member</a></li>
                             <li class="last">
 
-                                <a href="#">Log Out</a>
+                                <a href="javascript:void(0)" class="log-out">Log Out</a>
                                 <span>|||</span>
                             </li>
                         </ul>
-                    }else if (userAccuracy == "admin")
+                    }
+                    else if (userAccuracy == "admin")
                     {
 
                     }
                     else
                     {
-                         <ul class="leve-1">
-                        <li class="fisrt">
-                            <span>|||</span>
-                            <a href="#">Home</a>
-                        </li>
-                        <li>
-                            <a href="#">About Us</a>
-                        </li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">FeedBack</a></li>
-                        <li><a href="#">News</a></li>
-                        <li><a href="/login-employ">Member</a></li>
-                        <li class="last">
+                        <ul class="leve-1">
+                            <li class="fisrt">
+                                <span>|||</span>
+                                <a href="#">Home</a>
+                            </li>
+                            <li>
+                                <a href="#">About Us</a>
+                            </li>
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">FeedBack</a></li>
+                            <li><a href="#">News</a></li>
+                            <li><a href="/login-employ">Member</a></li>
+                            <li class="last">
 
-                            <a href="#">Admin</a>
-                            <span>|||</span>
-                        </li>
-                    </ul>
+                                <a href="#">Admin</a>
+                                <span>|||</span>
+                            </li>
+                        </ul>
                     }
-                   
+
                 </div>
                 @RenderBody()
 
@@ -236,13 +263,50 @@
     <script src="/public/customer/js/bootstrap.min.js"></script>
     <script src="~/lib/bootbox/bootbox.all.js"></script>
     <script src="/admin/plugins/notify.min.js"></script>
-    <script src="/public/admin/js/main.js"></script>
+    @*<script src="/public/admin/js/main.js"></script>*@
     <script src="~/share/tedu.js"></script>
     <script src="~/js/shared/shared.js"></script>
 
     <script src="~/admin/plugins/jquery.twbsPagination.min.js"></script>
     <script src="~/public/customer/bootstrap-sweetalert-master/dist/sweetalert.min.js"></script>
     @RenderSection("Scripts", required: false)
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".log-out").click(function(){
+                LogOut();
+                //swal({
+                //    title: "Are you sure you want to log out?",
+                //    icon: "warning",
+                //    buttons: true,
+                //    dangerMode: true,
+                //})
+                //    .then((willDelete) => {
+                //        if (willDelete) {
+                //            LogOut();
+                //        }else{
+
+                //        }
+                //    });
+            })
+            
+        })
+        function LogOut() {
+            $.ajax({
+                url: '/Acount/LogOut',
+                type: 'GET',
+                dataType: 'json',
+                beforeSend: function () {
+                    Loading('show');
+                },
+                complete: function () {
+                    Loading('hiden');
+                },
+                success: function (response) {
+                    window.location.replace("/home");
+                }
+            })
+        }
+    </script>
 </body>
 
 </html>

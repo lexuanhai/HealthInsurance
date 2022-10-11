@@ -15,6 +15,7 @@ namespace TECH.Data.DatabaseEntity
         public int PolcyId { get; set; }
         public int? RequestId { get; set; }
         public DateTime? Date { get; set; }
+        [Column(TypeName = "decimal(10,0)")]
         public decimal? Amount { get; set; }
         [Column(TypeName = "char(3)")]
         public string? Status { get; set; }

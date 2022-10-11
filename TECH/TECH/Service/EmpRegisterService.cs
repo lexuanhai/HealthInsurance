@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,8 @@ namespace TECH.Service
         void Save();
         EmpRegisterModelView Login(string username, string password);
         EmpRegisterModelView GetByid(int id);
+        bool Update(EmpRegisterModelView empRegisterModelView);
+        bool UpdateChangePassword(int id,string newpassword);
     }
 
     public class EmpRegisterService : IEmpRegisterService
@@ -78,6 +81,41 @@ namespace TECH.Service
                 return model;
             }
             return null;
+        }
+        public bool UpdateChangePassword(int id, string newpassword)
+        {
+            var data = _empRegisterRepository.FindAll(p => p.Empno == id).FirstOrDefault();
+            if (data != null)
+            {
+                data.PassWord = newpassword;
+                _empRegisterRepository.Update(data);
+                Save();
+                return true;
+            }
+            return false;
+        }
+        public bool Update(EmpRegisterModelView view)
+        {
+            if (view != null && view.Empno > 0)
+            {
+                var dataServer = _empRegisterRepository.FindAll(p => p.Empno == view.Empno).FirstOrDefault();
+                if (dataServer != null)
+                {
+                    dataServer.FirstName = view.FirstName;
+                    dataServer.LastName = view.LastName;
+                    dataServer.UserName = view.UserName;
+                    dataServer.PassWord = view.PassWord;
+                    dataServer.Address = view.Address;
+                    dataServer.ContactNo = view.ContactNo;
+                    dataServer.State = view.State;
+                    dataServer.City = view.City;
+                    _empRegisterRepository.Update(dataServer);
+                    Save();
+                    return true;
+                }
+            }
+            return false;
+           
         }
     }
 }

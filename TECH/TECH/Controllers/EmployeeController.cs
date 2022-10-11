@@ -72,6 +72,48 @@ namespace TECH.Controllers
             }
             return Redirect("/Employee");
         }
+
+        [HttpGet]
+        public JsonResult ChangePassWordNew(string oldPassword,string newPassword)
+        {
+            int status = 0;
+            if (!string.IsNullOrEmpty(oldPassword) && !string.IsNullOrEmpty(newPassword))
+            {
+                if (oldPassword.ToLower().Trim() == newPassword.ToLower().Trim())
+                {
+                    status = 1;
+                }
+                var userString = _httpContextAccessor.HttpContext.Session.GetString("UserInfor");
+                var user = new EmpRegisterModelView();
+                if (userString != null)
+                {
+                    user = JsonConvert.DeserializeObject<EmpRegisterModelView>(userString);
+                    if (user != null && user.Empno > 0)
+                    {
+                        var userModel = _empRegisterService.GetByid(user.Empno);
+                        if (userModel != null)
+                        {
+                            if (userModel.PassWord.ToLower().Trim() == oldPassword.ToLower().Trim() && 
+                                userModel.PassWord.ToLower().Trim() != newPassword.ToLower().Trim())
+                            {
+                               var statusChange = _empRegisterService.UpdateChangePassword(user.Empno, newPassword.Trim());
+                                if (statusChange)
+                                    status = 3;
+                            }
+                            else
+                            {
+                                status = 2;
+                            }
+
+                        }
+                    }
+
+                }
+            }
+            return Json(new { status = status });
+        }
+
+
         public IActionResult ViewEmployee()
         {
             var userString = _httpContextAccessor.HttpContext.Session.GetString("UserInfor");
@@ -89,6 +131,16 @@ namespace TECH.Controllers
                 }
             }
             return Redirect("/Employee");
+        }
+        [HttpPost]
+        public JsonResult Update(EmpRegisterModelView empRegisterModelView)
+        {
+            bool status = false;
+            if (empRegisterModelView != null)
+            {
+                status = _empRegisterService.Update(empRegisterModelView);               
+            }
+            return Json(new { status = status });
         }
 
     }

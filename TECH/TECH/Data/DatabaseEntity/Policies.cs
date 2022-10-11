@@ -18,9 +18,9 @@ namespace TECH.Data.DatabaseEntity
         [Column(TypeName = "varchar(50)")]
         public string? PolicyDesc { get; set; }
         [Column(TypeName = "decimal(10,0)")]
-        public string? Amount { get; set; }
+        public decimal? Amount { get; set; }
         [Column(TypeName = "decimal(10,0)")]
-        public string? Emi { get; set; }
+        public decimal? Emi { get; set; }
         public int? CompanyId { get; set; }
         [Column(TypeName = "varchar(50)")]
         public string? HospitalId { get; set; }

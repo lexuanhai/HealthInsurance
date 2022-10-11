@@ -10,8 +10,8 @@ namespace TECH.Areas.Admin.Models
         public int PolicyId { get; set; }
         public string? PolicyName { get; set; }
         public string? PolicyDesc { get; set; }
-        public string? Amount { get; set; }
-        public string? Emi { get; set; }
+        public decimal? Amount { get; set; }
+        public decimal? Emi { get; set; }
         public int? CompanyId { get; set; }
         public string? HospitalId { get; set; }
     }

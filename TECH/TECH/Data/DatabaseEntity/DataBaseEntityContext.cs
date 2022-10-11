@@ -15,7 +15,7 @@ namespace TECH.Data.DatabaseEntity
         public DbSet<EmpRegister> EmpRegister { set; get; }
         public DbSet<HospitalInfo> HospitalInfo { set; get; }
         public DbSet<Policies> Policies { set; get; }
-        public DbSet<Policiesonemployees> Policiesonemployees { set; get; }
+        public DbSet<PoliciesonEmployees> PoliciesonEmployees { set; get; }
         public DbSet<PolicyApprovalDetails> PolicyApprovalDetails { set; get; }
         public DbSet<PolicyRequestDetails> PolicyRequestDetails { set; get; }
         public DbSet<PolicyTotalDescription> PolicyTotalDescription { set; get; }

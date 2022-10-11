@@ -7,8 +7,8 @@ using TECH.SharedKernel;
 
 namespace TECH.Data.DatabaseEntity
 {
-    [Table("Policiesonemployees")]
-    public class Policiesonemployees
+    [Table("PoliciesonEmployees")]
+    public class PoliciesonEmployees
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

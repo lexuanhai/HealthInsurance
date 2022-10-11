@@ -48,9 +48,9 @@
             <!---->
         </div>
         <div class="form-group row">
-            <label for="first-name-icon" class="col-sm-3 title txt-title">PassWord</label>
+            <label for="first-name-icon" class="col-sm-3 title txt-title">Password</label>
             <div class="col-sm-9" style="padding-right: 45px;">
-                    <input type="text" placeholder="PassWord" id="password" name="password" class="form-control" autocomplete="off">
+                    <input type="password" placeholder="Password" id="password" name="password" class="form-control" autocomplete="off">
                 <label id="full_name-error" class="error" for="full_name" style="display: none;">Số điện thoại đã tồn tại</label>
             </div>
             <!---->
@@ -86,7 +86,7 @@
                     }
                 },
                 submitHandler: function (form) {
-                    var userName = $("#usename").val();
+                    var userName = $("#username").val();
                     var password = $("#password").val();
                     $.ajax({
                         url: '/Acount/LoginEmploy',
@@ -97,17 +97,17 @@
                             passWord:password
                         },
                         beforeSend: function () {
-                            //Loading('show');
+                            Loading('show');
                         },
                         complete: function () {
-                            //Loading('hiden');
+                            Loading('hiden');
                         },
                         success: function (response) {
                             if (response.status) {
-                                window.location.href = "/Employ";
+                                window.location.href = "/Employee";
                             }
                             else {
-                                $(".results").show();
+                                swal("Login Error!", "User name or Password is incorrect", "error");
                             }
                         }
                     })

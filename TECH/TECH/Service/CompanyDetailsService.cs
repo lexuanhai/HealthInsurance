@@ -50,29 +50,24 @@ namespace TECH.Service
             }
             return null;
         }
-        public int Add(UserModelView view)
+        public int Add(CompanyDetailsModelView view)
         {
             try
             {
                 if (view != null)
                 {
-                    var appUser = new Users
+                    var appUser = new CompanyDetails
                     {
-                        full_name = view.full_name,
-                        avatar = view.avatar,
-                        phone_number = view.phone_number,
-                        email = view.email,
-                        address = view.address,
-                        role = view.role.HasValue ? view.role.Value : 1,
-                        password = view.password,
-                        status = 0,
-                        register_date = DateTime.Now
+                        CompanyName = view.CompanyName,
+                        Address = view.Address,
+                        Phone = view.Phone,
+                        CompanyURL = view.CompanyURL
                     };
-                    _appUserRepository.Add(appUser);
+                    _companyDetailsRepository.Add(appUser);
 
                     Save();
 
-                    return appUser.id;
+                    return appUser.CompanyId;
                 }
             }
             catch (Exception ex)

@@ -27,7 +27,7 @@ namespace TECH.Controllers
             return View();
         }
         [HttpGet]
-        public JsonResult LoginEmploy(string userName,string passWord)
+        public JsonResult LoginEmploy(string userName, string passWord)
         {
             bool status = false;
             if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(passWord))
@@ -58,8 +58,8 @@ namespace TECH.Controllers
             var data = "";
             return Json(new { data = data });
         }
-
-        public IActionResult LogOut()
+        [HttpGet]
+        public JsonResult LogOut()
         {
 
             var userString = _httpContextAccessor.HttpContext.Session.GetString("UserInfor");
@@ -73,7 +73,10 @@ namespace TECH.Controllers
                 _httpContextAccessor.HttpContext.Session.Remove("UserAdminInfor");
             }
 
-            return Redirect("/home");
+            return Json(new
+            {
+                status = true
+            }) ;
 
         }
 

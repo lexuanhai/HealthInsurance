@@ -1,8 +1,33 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+@using TECH.Areas.Admin.Models
+@{
+    var userString = Context.Session.GetString("UserInfor");
+    string userAccuracy = "";
+    var user = new EmpRegisterModelView();
+    int isLogin = 0;
+    if (userString != null)
+    {
+        user = JsonConvert.DeserializeObject<EmpRegisterModelView>(userString);
+        userAccuracy = "user";
+        isLogin = 1;
+    }
+}
+
+
+@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="content-box">
-    <p>Welcome to the Employee</p> 
+    <p class="title-content-box">Welcome to the Employee</p>
 </div>
-
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if (@isLogin == 0) {
+                window.location.replace("/home");
+            }
+        })       
+    </script>
+}
