@@ -142,6 +142,23 @@ namespace TECH.Controllers
             }
             return Json(new { status = status });
         }
+        public IActionResult ListEmployee()
+        {
+            var data = _empRegisterService.GetAllEmployee();
+            return View(data);
+        }
+
+        [HttpPost]
+        public JsonResult Delete(int id)
+        {
+            var result = _empRegisterService.Deleted(id);
+            _empRegisterService.Save();
+            return Json(new
+            {
+                success = result
+            });
+        }
+
 
     }
 }

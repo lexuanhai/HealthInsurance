@@ -1,0 +1,170 @@
+﻿@{
+    ViewData["Title"] = "ListEmployee";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using TECH.Areas.Admin.Models
+@model List<EmpRegisterModelView>
+
+<style>
+    .bootbox-close-button.close{
+        float: right;
+    border: unset;
+    }
+    .content-box {
+        width: 70%;
+        margin: auto;
+    }
+
+    table {
+        background: #fff;
+    }
+
+        table thead th {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        table tbody td {
+            color: #35429f;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+    .title-txt {
+        text-align: center;
+        font-weight: bold;
+        color: #35429f;
+        font-size: 25px;
+        margin-top: 15px;
+    }
+
+    .apply-company {
+        text-align: center;
+        display: none;
+    }
+
+    .company-content .txt-title {
+        font-weight: bold;
+        color: #35429f;
+        text-align: left;
+    }
+
+    .company-content {
+        min-width: 350px;
+        background: #fff;
+        display: inline-block;
+        padding: 10px;
+    }
+
+        .company-content p {
+            font-weight: bold;
+            color: #35429f;
+        }
+
+        .company-content .txt-content {
+            text-align: left;
+        }
+</style>
+<div class="content-box">
+    <p class="title-txt">Policy Details</p>
+    @if (Model != null && Model.Count > 0)
+    {
+        <table id="table1" class="table table-striped">
+            <thead>
+                <tr>
+                    <th style="width:5%">EmpId</th>
+                    <th width="20%">EmployeeName</th>
+                    <th width="20%">PhoneNo</th>
+                    <th width="15%">Address</th>
+                    <th width="10%">JoinDate</th>
+                    <th width="10%">Disgnation</th>
+                    <th width="10%">Salary</th>
+                    <th width="10%">Edit/Delete</th>
+                </tr>
+
+            </thead>
+            <tbody id="tblData">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Empno</td>
+                        <td>@item.LastName</td>
+                        <td>@item.ContactNo</td>
+                        <td>@item.Address</td>
+                        <td>@(item.JoinDate.HasValue?item.JoinDate.Value.ToString("mm/dd/yyyy") : "" )</td>
+                        <td>@item.Designation</td>
+                        <td>@item.Salary</td>
+                        <td>
+                            <a href="javascript:void(0)" onclick="edit(@item.Empno)" style="text-decoration: underline;">Edit</a>
+                            <a href="javascript:void(0)" onclick="deleteEmployee(@item.Empno)" style="text-decoration: underline;">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+
+@section Scripts{
+    <script src="~/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".btn-cancel").click(function () {
+                window.location.reload();
+            })
+
+        })
+        function deleteEmployee(id) {
+            if (id != null && id != "") {
+                tedu.confirm('Bạn có chắc muốn xóa danh mục này?', function () {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Employee/Delete",
+                        data: { id: id },
+                        beforeSend: function () {
+                            // tedu.start//Loading();
+                        },
+                        success: function () {
+                            tedu.notify('Đã xóa thành công', 'success');
+                            window.location.reload();
+                        },
+                        error: function () {
+                            tedu.notify('Has an error', 'error');
+                            tedu.stop//Loading();
+                        }
+                    });
+                });
+            }
+        }
+        //function edit(id) {
+        //    if (id != null && id != "") {
+        //        tedu.confirm('Bạn có chắc muốn xóa danh mục này?', function () {
+        //            $.ajax({
+        //                type: "POST",
+        //                url: "/Admin/Category/Delete",
+        //                data: { id: id },
+        //                beforeSend: function () {
+        //                    // tedu.start//Loading();
+        //                },
+        //                success: function () {
+        //                    tedu.notify('Đã xóa thành công', 'success');
+        //                    //tedu.stop//Loading();
+        //                    //loadData();
+        //                    self.GetDataPaging(true);
+        //                },
+        //                error: function () {
+        //                    tedu.notify('Has an error', 'error');
+        //                    tedu.stop//Loading();
+        //                }
+        //            });
+        //        });
+        //    }
+        //}
+    </script>
+    }
+
+
+

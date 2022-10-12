@@ -19,6 +19,8 @@ namespace TECH.Service
         EmpRegisterModelView GetByid(int id);
         bool Update(EmpRegisterModelView empRegisterModelView);
         bool UpdateChangePassword(int id,string newpassword);
+        bool Deleted(int id);
+        List<EmpRegisterModelView> GetAllEmployee();
     }
 
     public class EmpRegisterService : IEmpRegisterService
@@ -116,6 +118,39 @@ namespace TECH.Service
             }
             return false;
            
+        }
+        public List<EmpRegisterModelView> GetAllEmployee()
+        {
+            var data = _empRegisterRepository.FindAll().Select(p => new EmpRegisterModelView()
+            {
+                Empno = p.Empno,
+                LastName = p.LastName,
+                ContactNo = p.ContactNo,
+                Address = p.Address,
+                JoinDate = p.JoinDate,
+                Designation = p.Designation,
+                Salary = p.Salary,
+            }).ToList();            
+            return data;
+        }
+        public bool Deleted(int id)
+        {
+            try
+            {
+                var dataServer = _empRegisterRepository.FindAll().Where(e=>e.Empno ==id).FirstOrDefault();
+                if (dataServer != null)
+                {
+                    _empRegisterRepository.Remove(dataServer);
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+            return false;
         }
     }
 }

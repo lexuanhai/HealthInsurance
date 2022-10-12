@@ -97,6 +97,10 @@ app.UseEndpoints(endpoints =>
    name: "AddCompany",
    pattern: "/add-company",
    defaults: new { controller = "CompanyDetails", action = "AddView" });
+    endpoints.MapControllerRoute(
+  name: "employee-list",
+  pattern: "/employee-list",
+  defaults: new { controller = "Employee", action = "ListEmployee" });
 
     endpoints.MapControllerRoute(
   name: "addpolicy",
