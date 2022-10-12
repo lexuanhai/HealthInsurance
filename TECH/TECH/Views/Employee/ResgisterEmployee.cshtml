@@ -1,0 +1,282 @@
+﻿
+@{
+    ViewData["Title"] = "ResgisterEmployee";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .box-form {
+        width: 500px;
+       margin: 60px auto;
+        padding-bottom: 60px;
+    }
+
+    .title {
+        color: #35429f;
+        font-weight: bold !important;
+    }
+
+    .title-box {
+            text-align: center;
+    margin-bottom: 60px;
+    padding: 5px 0px;
+       font-size: 25px;
+    color: #323ef8;
+    }
+
+    .btn-submit {
+        border: 1px solid #35429f;
+        color: #35429f;
+        font-weight: bold !important;
+        text-align: right;
+        padding: 1px 10px;
+        border-radius: 4px;
+        margin-top: 10px;
+    }
+
+    .txt-title {
+        padding-left: 20px;
+        display: flex;
+        align-items: center;
+    }
+</style>
+<div class="content-box">
+    <div class="box-form">
+        <form id="form-submit" action="#">
+            <p class="title title-box">Employee Register</p>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-3 title txt-title"> Designation: </label>
+                <div class="col-sm-9" style="padding-right: 45px;">
+                    <input type="text" placeholder="Designation" id="Designation" name="Designation" class="form-control">
+                    
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-3 title txt-title"> Join Date: </label>
+                <div class="col-sm-9" style="padding-right: 45px;">
+                    <input type="text" placeholder="First Name" id="FirstName" name="FirstName" class="form-control" >
+                    
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-3 title txt-title"> First Name </label>
+                <div class="col-sm-9" style="padding-right: 45px;">
+                    <input type="text" placeholder="First Name" id="FirstName" name="FirstName" class="form-control">
+                    
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-3 title txt-title">Last Name</label>
+                <div class="col-sm-9" style="padding-right: 45px;">
+                    <input type="text" placeholder="Last Name" id="LastName" name="LastName" class="form-control" autocomplete="off">
+                    
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-3 title txt-title"> UserName </label>
+                <div class="col-sm-9" style="padding-right: 45px;">
+                    <input type="text" placeholder="User Name" id="UserName" name="UserName" class="form-control">               
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-3 title txt-title">Password</label>
+                <div class="col-sm-9" style="padding-right: 45px;">
+                    <input type="password" placeholder="Password" id="Password" name="Password" class="form-control" autocomplete="off">
+                    
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-3 title txt-title"> Address</label>
+                <div class="col-sm-9" style="padding-right: 45px;">
+                    <textarea name="Address" id="Address" rows="2" placeholder="Address" class="form-control">@(!string.IsNullOrEmpty(Model.Address) ? Model.Address : "")</textarea>
+                    
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-3 title txt-title"> Contact No </label>
+                <div class="col-sm-9" style="padding-right: 45px;">
+                    <input type="text" placeholder="Contact No" id="ContactNo" name="ContactNo" class="form-control">
+                    
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-3 title txt-title">State</label>
+                <div class="col-sm-9" style="padding-right: 45px;">
+                    <input type="text" placeholder="State" id="State" name="State" class="form-control" autocomplete="off">
+                    
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-3 title txt-title"> Country </label>
+                <div class="col-sm-9" style="padding-right: 45px;">
+                    <input type="text" placeholder="Country" id="Country" name="Country" class="form-control">
+                    
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-3 title txt-title">City</label>
+                <div class="col-sm-9" style="padding-right: 45px;">
+                    <input type="text" placeholder="City" id="City" name="City" class="form-control" autocomplete="off">
+                    
+                </div>
+                <!---->
+            </div>
+            <div class="form-group" style="text-align: center;margin-top: 30px;">
+                <button type="submit" class="btn-submit">Update</button>
+                <button type="button" class="btn-submit btn-cancel">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+                <h5 class="modal-title custom-title" id="exampleModalLongTitle" style="font-size: 25px; text-align: center; width: 100%;">
+                    Successful
+                </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body model-content-text">
+                <p class="" style="font-size: 20px;  margin-bottom: unset; font-weight: bold;">Update successful <br />Please go back to the list</p>
+      </div>
+      <div class="modal-footer">
+        @*<button type="button" class="btn btn-secondary"></button>*@
+        <button type="button" class="btn btn-primary come-black">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+@section Scripts{
+    <script src="~/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".btn-cancel").click(function(){
+                //window.location.reload();
+                 window.location.replace("/employee-list");
+            })
+            $(".come-black").click(function(){
+                window.location.replace("/employee-list");                
+            })
+            $("#form-submit").validate({
+                rules:
+                {
+                    Designation: {
+                        required: true,
+                    },
+                    FirstName: {
+                        required: true,
+                    },
+                    LastName: {
+                        required: true,
+                    },
+                    UserName: {
+                        required: true,
+                    },
+                    Password: {
+                        required: true,
+                    },
+                    Address: {
+                        required: true,
+                    },
+                    ContactNo: {
+                        required: true,
+                    },
+                    State: {
+                        required: true,
+                    },
+                    Country: {
+                        required: true,
+                    },
+                    City: {
+                        required: true,
+                    }
+                },
+                messages:
+                {
+                    Designation: {
+                        required: "Please enter your Designation",
+                    },
+                    FirstName: {
+                        required: "Please enter your FirstName",
+                    },
+                    LastName: {
+                        required: "Please enter your LastName",
+                    },
+                     UserName: {
+                        required: "Please enter your UserName",
+                    },
+                    Password: {
+                        required: "Please enter your Password",
+                    },
+                    Address: {
+                        required: "Please enter your Address",
+                    },
+                    ContactNo: {
+                        required: "Please enter your ContactNo",
+                    },
+                    State: {
+                        required: "Please enter your State",
+                    },
+                    Country: {
+                        required: "Please enter your Country",
+                    },
+                    City: {
+                         required: "Please enter your City",
+                    }
+                },
+                submitHandler: function (form) {
+                    var userInfor ={
+                        Designation: $("#Designation").val(),
+                        FirstName:$("#FirstName").val(),
+                        LastName:$("#LastName").val(),
+                        UserName:$("#UserName").val(),
+                        PassWord:$("#Password").val(),
+                        Address:$("#Address").val(),
+                        ContactNo:$("#ContactNo").val(),
+                        State:$("#State").val(),
+                        Country:$("#Country").val(),
+                        City:$("#City").val(),
+                        Empno:$("#employid").val()
+                    }
+                    $.ajax({
+                        url: '/Employee/Update',
+                        type: 'Post',
+                        dataType: 'json',
+                        data: {
+                            empRegisterModelView: userInfor
+                        },
+                        beforeSend: function () {
+                            Loading('show');
+                        },
+                        complete: function () {
+                            Loading('hiden');
+                        },
+                        success: function (response) {
+                            if (response.status) {                                
+                                 $("#exampleModalCenter").modal('show');
+                            }
+                            else {
+                               swal("Error!", "Update Employ failed", "error");
+                            }
+                        }
+                    })
+                }
+            });
+        })
+    </script>
+    }
+
+

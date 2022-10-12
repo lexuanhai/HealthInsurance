@@ -132,6 +132,14 @@ namespace TECH.Controllers
             }
             return Redirect("/Employee");
         }
+
+        public IActionResult UpdateEmployee(int employeeId)
+        {
+            var data = _empRegisterService.GetByid(employeeId);
+            return View(data);
+        }
+
+
         [HttpPost]
         public JsonResult Update(EmpRegisterModelView empRegisterModelView)
         {
@@ -142,11 +150,17 @@ namespace TECH.Controllers
             }
             return Json(new { status = status });
         }
+
+        public IActionResult ResgisterEmployee()
+        {
+            return View();
+        }
         public IActionResult ListEmployee()
         {
             var data = _empRegisterService.GetAllEmployee();
             return View(data);
         }
+        
 
         [HttpPost]
         public JsonResult Delete(int id)

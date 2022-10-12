@@ -97,7 +97,7 @@
                         <td>@item.Designation</td>
                         <td>@item.Salary</td>
                         <td>
-                            <a href="javascript:void(0)" onclick="edit(@item.Empno)" style="text-decoration: underline;">Edit</a>
+                            <a href="/Employee/UpdateEmployee?employeeId=@item.Empno" style="text-decoration: underline;">Edit</a>
                             <a href="javascript:void(0)" onclick="deleteEmployee(@item.Empno)" style="text-decoration: underline;">Delete</a>
                         </td>
                     </tr>
@@ -119,7 +119,7 @@
         })
         function deleteEmployee(id) {
             if (id != null && id != "") {
-                tedu.confirm('Bạn có chắc muốn xóa danh mục này?', function () {
+                tedu.confirm('Are you sure you want to delete employee?', function () {
                     $.ajax({
                         type: "POST",
                         url: "/Employee/Delete",
@@ -128,7 +128,7 @@
                             // tedu.start//Loading();
                         },
                         success: function () {
-                            tedu.notify('Đã xóa thành công', 'success');
+                            tedu.notify('Successful delete', 'success');
                             window.location.reload();
                         },
                         error: function () {
@@ -139,30 +139,28 @@
                 });
             }
         }
-        //function edit(id) {
-        //    if (id != null && id != "") {
-        //        tedu.confirm('Bạn có chắc muốn xóa danh mục này?', function () {
-        //            $.ajax({
-        //                type: "POST",
-        //                url: "/Admin/Category/Delete",
-        //                data: { id: id },
-        //                beforeSend: function () {
-        //                    // tedu.start//Loading();
-        //                },
-        //                success: function () {
-        //                    tedu.notify('Đã xóa thành công', 'success');
-        //                    //tedu.stop//Loading();
-        //                    //loadData();
-        //                    self.GetDataPaging(true);
-        //                },
-        //                error: function () {
-        //                    tedu.notify('Has an error', 'error');
-        //                    tedu.stop//Loading();
-        //                }
-        //            });
-        //        });
-        //    }
-        //}
+        function edit(id) {
+            if (id != null && id != "") {
+                $.ajax({
+                    type: "GET",
+                    url: "/Employee/UpdateEmployee",
+                    data: { id: id },
+                    beforeSend: function () {
+                        // tedu.start//Loading();
+                    },
+                    success: function () {
+                        tedu.notify('Đã xóa thành công', 'success');
+                        //tedu.stop//Loading();
+                        //loadData();
+                        self.GetDataPaging(true);
+                    },
+                    error: function () {
+                        tedu.notify('Has an error', 'error');
+                        tedu.stop//Loading();
+                    }
+                });
+            }
+        }
     </script>
     }
 
