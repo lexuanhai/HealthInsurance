@@ -60,6 +60,31 @@ namespace TECH.Migrations
                     b.ToTable("CompanyDetails");
                 });
 
+            modelBuilder.Entity("TECH.Data.DatabaseEntity.Contract", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ContractNo")
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("EmailId")
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<string>("Subject")
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Contract");
+                });
+
             modelBuilder.Entity("TECH.Data.DatabaseEntity.EmpRegister", b =>
                 {
                     b.Property<int>("Empno")
@@ -113,6 +138,28 @@ namespace TECH.Migrations
                     b.HasKey("Empno");
 
                     b.ToTable("EmpRegister");
+                });
+
+            modelBuilder.Entity("TECH.Data.DatabaseEntity.FeedBack", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("EmailId")
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Feedback")
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FeedBack");
                 });
 
             modelBuilder.Entity("TECH.Data.DatabaseEntity.HospitalInfo", b =>
@@ -176,14 +223,17 @@ namespace TECH.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("CompanyId")
-                        .HasColumnType("varchar(50)");
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
 
                     b.Property<string>("CompanyName")
                         .HasColumnType("varchar(50)");
 
-                    b.Property<string>("Empno")
-                        .HasColumnType("varchar(10)");
+                    b.Property<decimal?>("EMI")
+                        .HasColumnType("decimal(10,0)");
+
+                    b.Property<int?>("Empno")
+                        .HasColumnType("int");
 
                     b.Property<string>("Medical")
                         .HasColumnType("varchar(50)");

@@ -9,7 +9,8 @@
     .box-form {
         width: 500px;
        margin: 60px auto;
-        padding-bottom: 60px;
+        padding-bottom: 40px;
+            margin-top: 20px;
     }
 
     .title {
@@ -19,7 +20,6 @@
 
     .title-box {
             text-align: center;
-    margin-bottom: 60px;
     padding: 5px 0px;
        font-size: 25px;
     color: #323ef8;
@@ -44,80 +44,62 @@
 <div class="content-box">
     <div class="box-form">
         <form id="form-submit" action="#">
-            <input type="hidden" id="employid" value="@Model.Empno"/>
-            <p class="title title-box">Order for insurance Form</p>
+            <p class="title title-box">Order for insurance Policy</p>
             <div class="form-group row">
-                <label for="first-name-icon" class="col-sm-3 title txt-title"> First Name </label>
-                <div class="col-sm-9" style="padding-right: 45px;">
-                    <input type="text" placeholder="First Name" id="FirstName" name="FirstName" class="form-control">
-                    <label id="full_name-error" class="error" for="full_name" style="display: none;">Số điện thoại đã tồn tại</label>
+                <label for="first-name-icon" class="col-sm-4 title txt-title">PolicyId:</label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <select id="PolicySelect" class="form-control">
+                        <option value="">Choose Policy Id</option>
+                    </select>
                 </div>
                 <!---->
             </div>
             <div class="form-group row">
-                <label for="first-name-icon" class="col-sm-3 title txt-title">Last Name</label>
-                <div class="col-sm-9" style="padding-right: 45px;">
-                    <input type="text" placeholder="Last Name" id="LastName" name="LastName" class="form-control" autocomplete="off">
-                    <label id="full_name-error" class="error" for="full_name" style="display: none;">Số điện thoại đã tồn tại</label>
+                <label for="first-name-icon" class="col-sm-4 title txt-title">PolicyName</label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <input type="text" placeholder="Policy Name" id="PolicyName" name="PolicyName" class="form-control" autocomplete="off">
                 </div>
                 <!---->
             </div>
             <div class="form-group row">
-                <label for="first-name-icon" class="col-sm-3 title txt-title"> UserName </label>
-                <div class="col-sm-9" style="padding-right: 45px;">
-                    <input type="text" placeholder="User Name" id="UserName" name="UserName" class="form-control" >
-                    <label id="full_name-error" class="error" for="full_name" style="display: none;">Số điện thoại đã tồn tại</label>
+                <label for="first-name-icon" class="col-sm-4 title txt-title"> PolicyAmount </label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <input type="number" placeholder="Policy Amount" id="PolicyAmount" name="PolicyAmount" class="form-control" >
                 </div>
                 <!---->
             </div>
             <div class="form-group row">
-                <label for="first-name-icon" class="col-sm-3 title txt-title">Password</label>
-                <div class="col-sm-9" style="padding-right: 45px;">
-                    <input type="password" placeholder="Password" id="Password" name="Password" class="form-control" autocomplete="off">
-                    <label id="full_name-error" class="error" for="full_name" style="display: none;">Số điện thoại đã tồn tại</label>
+                <label for="first-name-icon" class="col-sm-4 title txt-title">EMI</label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <input type="number" placeholder="EMI" id="EMI" name="EMI" class="form-control" autocomplete="off">
+                    
                 </div>
                 <!---->
             </div>
             <div class="form-group row">
-                <label for="first-name-icon" class="col-sm-3 title txt-title"> Address</label>
-                <div class="col-sm-9" style="padding-right: 45px;">
-                    <textarea name="Address" id="Address" rows="2" placeholder="Address" class="form-control"></textarea>
-                    <label id="full_name-error" class="error" for="full_name" style="display: none;">Số điện thoại đã tồn tại</label>
+                <label for="first-name-icon" class="col-sm-4 title txt-title"> Request Date</label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <input type="text" placeholder="Request Date" id="RequestDate" name="RequestDate" class="form-control" autocomplete="off">
+                    
                 </div>
                 <!---->
             </div>
             <div class="form-group row">
-                <label for="first-name-icon" class="col-sm-3 title txt-title"> Contact No </label>
-                <div class="col-sm-9" style="padding-right: 45px;">
-                    <input type="text" placeholder="Contact No" id="ContactNo" name="ContactNo" class="form-control">
-                    <label id="full_name-error" class="error" for="full_name" style="display: none;">Số điện thoại đã tồn tại</label>
+                <label for="first-name-icon" class="col-sm-4 title txt-title"> CompanyName </label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <input type="text" placeholder="Company Name" id="CompanyName" name="CompanyName" class="form-control">
+                    
                 </div>
                 <!---->
             </div>
             <div class="form-group row">
-                <label for="first-name-icon" class="col-sm-3 title txt-title">State</label>
-                <div class="col-sm-9" style="padding-right: 45px;">
-                    <input type="text" placeholder="State" id="State" name="State" class="form-control" autocomplete="off">
-                    <label id="full_name-error" class="error" for="full_name" style="display: none;">Số điện thoại đã tồn tại</label>
+                <label for="first-name-icon" class="col-sm-4 title txt-title">CompanyId</label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <input type="number" placeholder="Company Id" id="CompanyId" name="CompanyId" class="form-control" autocomplete="off">
+                    
                 </div>
                 <!---->
-            </div>
-            <div class="form-group row">
-                <label for="first-name-icon" class="col-sm-3 title txt-title"> Country </label>
-                <div class="col-sm-9" style="padding-right: 45px;">
-                    <input type="text" placeholder="Country" id="Country" name="Country" class="form-control">
-                    <label id="full_name-error" class="error" for="full_name" style="display: none;">Số điện thoại đã tồn tại</label>
-                </div>
-                <!---->
-            </div>
-            <div class="form-group row">
-                <label for="first-name-icon" class="col-sm-3 title txt-title">City</label>
-                <div class="col-sm-9" style="padding-right: 45px;">
-                    <input type="text" placeholder="City" id="City" name="City" class="form-control" autocomplete="off">
-                    <label id="full_name-error" class="error" for="full_name" style="display: none;">Số điện thoại đã tồn tại</label>
-                </div>
-                <!---->
-            </div>
+            </div>            
             <div class="form-group" style="text-align: center;margin-top: 30px;">
                 <button type="submit" class="btn-submit">ADD</button>
                 <button type="button" class="btn-submit btn-cancel">Cancel</button>
@@ -130,89 +112,75 @@
     <script src="~/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            $("#RequestDate").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'dd/mm/yy',
+                formatSubmit: 'yyyy/mm/dd'
+            });
             $(".btn-cancel").click(function(){
                 window.location.reload();
             })
+            GetPolicyCompany();
             $("#form-submit").validate({
                 rules:
                 {
                     FirstName: {
                         required: true,
                     },
-                    LastName: {
+                    PolicyName: {
                         required: true,
                     },
-                    UserName: {
+                    PolicyAmount: {
                         required: true,
                     },
-                    Password: {
+                    CompanyName: {
                         required: true,
                     },
-                    Address: {
+                    EMI: {
                         required: true,
                     },
-                    ContactNo: {
-                        required: true,
-                    },
-                    State: {
-                        required: true,
-                    },
-                    Country: {
-                        required: true,
-                    },
-                    City: {
+                    CompanyId: {
                         required: true,
                     }
                 },
                 messages:
                 {
-                    FirstName: {
-                        required: "Please enter your FirstName",
+                    PolicyName: {
+                        required: "Please enter your Policy Name",
                     },
-                    LastName: {
-                        required: "Please enter your LastName",
+                    PolicyAmount: {
+                        required: "Please enter your Policy Amount",
                     },
-                     UserName: {
-                        required: "Please enter your UserName",
+                    EMI: {
+                        required: "Please enter your EMI",
                     },
-                    Password: {
-                        required: "Please enter your Password",
+                    CompanyId: {
+                        required: "Please enter your CompanyId",
                     },
-                    Address: {
-                        required: "Please enter your Address",
-                    },
-                    ContactNo: {
-                        required: "Please enter your ContactNo",
-                    },
-                    State: {
-                        required: "Please enter your State",
-                    },
-                    Country: {
-                        required: "Please enter your Country",
-                    },
-                    City: {
-                         required: "Please enter your City",
+                    CompanyName: {
+                        required: "Please enter your Company Name",
                     }
                 },
                 submitHandler: function (form) {
-                    var userInfor ={
-                        FirstName:$("#FirstName").val(),
-                        LastName:$("#LastName").val(),
-                        UserName:$("#UserName").val(),
-                        PassWord:$("#Password").val(),
-                        Address:$("#Address").val(),
-                        ContactNo:$("#ContactNo").val(),
-                        State:$("#State").val(),
-                        Country:$("#Country").val(),
-                        City:$("#City").val(),
-                        Empno:$("#employid").val()
-                    }
+                    var date = $("#RequestDate").datepicker('getDate');
+                    date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+
+                    var PolicyRequestDetailsModelView ={
+                        PolicyName:$("#PolicyName").val(),
+                        PolicyAmount:$("#PolicyAmount").val(),
+                        EMI:$("#EMI").val(),
+                        CompanyId: $("#CompanyId").val(),
+                        PoicyId:$("#PolicySelect").val(),
+                        RequestDate: date,
+                        CompanyName:$("#CompanyName").val()
+                    };
                     $.ajax({
-                        url: '/Employee/Update',
+                        url: '/PolicyRequestDetails/AddRequestDetails',
                         type: 'Post',
                         dataType: 'json',
                         data: {
-                            empRegisterModelView: userInfor
+                            policyRequestDetailsModelView: PolicyRequestDetailsModelView
                         },
                         beforeSend: function () {
                             Loading('show');
@@ -232,6 +200,31 @@
                 }
             });
         })
+        function GetPolicyCompany() {
+            $.ajax({
+                url: '/Policies/GetAllPolicy',
+                type: 'GET',
+                dataType: 'json',
+                beforeSend: function () {
+                    //Loading('show');
+                },
+                complete: function () {
+                    //Loading('hiden');
+                },
+                success: function (response) {
+                    if (response.data != null && response.data.length > 0) {
+                        var html = "<option value =\"\">Choose Policy Id</option>";
+                        if (response.data != null && response.data.length > 0) {
+                            for (var i = 0; i < response.data.length; i++) {
+                                var item = response.data[i];
+                                html += "<option value =" + item.PolicyId + ">" + item.PolicyId + "</option>";
+                            }
+                        }
+                        $("#PolicySelect").html(html);
+                    }
+                }
+            })
+        }
     </script>
     }
 

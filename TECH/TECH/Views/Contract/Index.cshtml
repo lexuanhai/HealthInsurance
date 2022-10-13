@@ -1,0 +1,233 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .box-form {
+        width: 80%;
+        margin: 60px auto;
+        padding-bottom: 60px;
+        justify-content: center;
+    }
+
+    .title {
+        color: #35429f;
+        font-weight: bold !important;
+    }
+
+    .title-box {
+        text-align: center;
+        padding: 5px 0px;
+        font-size: 25px;
+        color: #323ef8;
+    }
+
+    .btn-submit {
+        border: 1px solid #35429f;
+        color: #35429f;
+        font-weight: bold !important;
+        text-align: right;
+        padding: 1px 10px;
+        border-radius: 4px;
+        margin-top: 10px;
+    }
+
+    .txt-title {
+        padding: 0px;
+        display: flex;
+        align-items: center;
+        font-size: 15px;
+    }
+
+    .box-top {
+        text-align: center;
+        font-size: 25px;
+        color: #35429f;
+        margin-top:30px;
+    }
+
+    .txt-red {
+        color: red;
+        font-size: 15px;
+    }
+
+    .round-phone {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: green;
+        margin: auto;
+    }
+
+        .round-phone i {
+            color: #fff;
+            font-size: 75px;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    .box-submit-info label {
+        position: relative;
+    }
+    .box-submit-info label span {
+        float: right;
+        position: absolute;
+        right: 10px;
+    }
+    .box-submit-info .col-sm-8{
+        padding:0px !important;
+    }
+</style>
+<div class="content-box">
+    <div class="box-top">
+        <h1>Contract Us</h1>
+        <p class="txt-red">(Please Fill The * Value)</p>
+    </div>
+    <div class="box-form row">
+        <div class="detail-info col-sm-4">
+            <p class="">25 RajaRam #07-28</p>
+            <p class="">Gandhi Nagar, India 065128</p>
+            <p class="">Hp : 90078654</p>
+            <p class="">Fax : 10002413</p>
+            <p class="">Email : <a href="javascript:void(0)" style="color:red">Contract@Medicalcare.com</a></p>
+        </div>
+        <div class="box-img col-sm-3">
+            <div class="round-phone"><i class="bi bi-telephone"></i></div>
+        </div>
+        <div class="box-submit-info col-sm-5">
+            <form id="form-submit" action="#">
+                <div class="form-group row">
+                    <label for="first-name-icon" class="col-sm-4 title txt-title">Name: <span class="txt-red">*</span></label>
+                    <div class="col-sm-8">
+                        <input type="text" placeholder="Name" id="Name" name="Name" class="form-control">
+                    </div>
+                    <!---->
+                </div>
+                <div class="form-group row">
+                    <label for="first-name-icon" class="col-sm-4 title txt-title">Email Id <span class="txt-red">*</span></label>
+                    <div class="col-sm-8">
+                        <input name="EmailId" id="EmailId" type="text" placeholder="Email Id" class="form-control">
+                    </div>
+                    <!---->
+                </div>
+                <div class="form-group row">
+                    <label for="first-name-icon" class="col-sm-4 title txt-title">Contract No:<span class="txt-red">*</span></label>
+                    <div class="col-sm-8">
+                        <input name="ContractNo" id="ContractNo" type="text" placeholder="Contract No" class="form-control">
+                    </div>
+                    <!---->
+                </div>
+                <div class="form-group row">
+                    <label for="first-name-icon" class="col-sm-4 title txt-title">Subject:<span class="txt-red">*</span></label>
+                    <div class="col-sm-8">
+                        <input name="Subject" id="Subject" type="text" placeholder="Subject" class="form-control">
+                    </div>
+                    <!---->
+                </div>
+                <div class="form-group row">
+                    <label for="first-name-icon" class="col-sm-4 title txt-title">Message:<span class="txt-red">*</span></label>
+                    <div class="col-sm-8">
+                        <input name="Message" id="Message" type="password" placeholder="Message" class="form-control">
+                    </div>
+                    <!---->
+                </div>
+
+                <div class="form-group" style="margin-top: 20px;text-align: center;">
+                    <button type="submit" class="btn-submit" style="float: right;">Submit</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".btn-cancel").click(function () {
+                window.location.reload();
+            })
+            $("#form-submit").validate({
+                rules:
+                {
+                    Name: {
+                        required: true,
+                    },
+                    EmailId: {
+                        required: true,
+                    },
+                    ContractNo: {
+                        required: true,
+                    },
+                    Subject: {
+                        required: true,
+                    },
+                    Message: {
+                        required: true,
+                    }
+                },
+                messages:
+                {
+                    Name: {
+                        required: "Please enter your  Name",
+                    },
+                    EmailId: {
+                        required: "Please enter your Email Id",
+                    },
+                    ContractNo: {
+                        required: "Please enter your Contract No",
+                    },
+                    Subject: {
+                        required: "Please enter your Subject",
+                    },
+                    Message: {
+                        required: "Please enter your Message",
+                    }
+                },
+                submitHandler: function (form) {
+                    var contract = {
+                        Name: $("#Name").val(),
+                        EmailId: $("#EmailId").val(),
+                        ContractNo: $("#ContractNo").val(),
+                        Subject: $("#Subject").val(),
+                        Message: $("#Message").val(),
+                    }
+                    $.ajax({
+                        url: '/Contract/Add',
+                        type: 'Post',
+                        dataType: 'json',
+                        data: {
+                            contractModelView: contract
+                        },
+                        beforeSend: function () {
+                            Loading('show');
+                        },
+                        complete: function () {
+                            Loading('hiden');
+                        },
+                        success: function (response) {
+                            if (response.status) {
+                                swal("Success", "Add successful", "success");
+                            }
+                            else {
+                                swal("Error!", "Add failed", "error");
+                            }
+                        }
+                    })
+                }
+            });
+
+        })
+
+    </script>
+}
+
+
+
+

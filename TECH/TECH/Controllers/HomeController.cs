@@ -17,6 +17,10 @@ namespace TECH.Controllers
         {
             return View();
         }
+        public IActionResult AdminView()
+        {
+            return View();
+        }
 
         public IActionResult Privacy()
         {

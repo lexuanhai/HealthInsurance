@@ -13,19 +13,20 @@ namespace TECH.Data.DatabaseEntity
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [Column(TypeName = "varchar(10)")]
-        public string? Empno { get; set; }
+        //[Column(TypeName = "varchar(10)")]
+        public int? Empno { get; set; }
         public int PolcyId { get; set; }
         [Column(TypeName = "varchar(50)")]
         public string? PolcyName { get; set; }
         [Column(TypeName = "decimal(10,0)")]
         public decimal? PolicyAmount { get; set; }
         [Column(TypeName = "decimal(10,0)")]
+        public decimal? EMI { get; set; }
+        [Column(TypeName = "decimal(10,0)")]
         public decimal? PolicyDuration { get; set; }
         public DateTime? PstartDate { get; set; }
         public DateTime? Penddate { get; set; }
-        [Column(TypeName = "varchar(50)")]
-        public string? CompanyId { get; set; }
+        public int? CompanyId { get; set; }
         [Column(TypeName = "varchar(50)")]
         public string? CompanyName { get; set; }
         [Column(TypeName = "varchar(50)")]

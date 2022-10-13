@@ -43,5 +43,11 @@ namespace TECH.Controllers
             }
             return Json(new { status = status });
         }
+        [HttpGet]
+        public JsonResult GetAllPolicy()
+        {
+            var data = _policiesService.GetAllPolicies();
+            return Json(new { data = data });
+        }
     }
 }

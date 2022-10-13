@@ -151,6 +151,21 @@ namespace TECH.Controllers
             return Json(new { status = status });
         }
 
+        [HttpPost]
+        public JsonResult Add(EmpRegisterModelView empRegisterModelView)
+        {
+            bool status = false;
+            if (empRegisterModelView != null)
+            {
+                int id = _empRegisterService.Add(empRegisterModelView);
+                if (id > 0)
+                {
+                    status = true;
+                }
+            }
+            return Json(new { status = status });
+        }
+
         public IActionResult ResgisterEmployee()
         {
             return View();

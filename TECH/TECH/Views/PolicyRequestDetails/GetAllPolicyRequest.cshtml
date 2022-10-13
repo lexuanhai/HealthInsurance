@@ -1,0 +1,215 @@
+﻿
+@{
+    ViewData["Title"] = "GetAllPolicyRequest";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using TECH.Areas.Admin.Models
+@model List<PolicyRequestDetailsModelView>
+
+<style>
+    /*.box-form {
+        width: 500px;
+       margin: 60px auto;
+        padding-bottom: 60px;
+    }
+
+    .title {
+        color: #35429f;
+        font-weight: bold !important;
+    }
+
+    .title-box {
+            text-align: center;
+    margin-bottom: 60px;
+    padding: 5px 0px;
+       font-size: 25px;
+    color: #323ef8;
+    }
+
+    .btn-submit {
+        border: 1px solid #35429f;
+        color: #35429f;
+        font-weight: bold !important;
+        text-align: right;
+        padding: 1px 10px;
+        border-radius: 4px;
+        margin-top: 10px;
+    }
+
+    .txt-title {
+        padding-left: 20px;
+        display: flex;
+        align-items: center;
+    }*/
+    .content-box{
+        width: 80%;
+        margin: auto;
+    }
+    table{
+       background: #fff;
+    }
+    table thead th{
+         font-size: 14px;
+         font-weight: bold;
+    }
+    table tbody td{
+        color: #35429f;
+        font-size: 14px;
+        font-weight: bold;
+
+    }
+    table thead tr{
+            background: #006699;
+            color: #fff;
+    }
+
+        table thead tr th{
+                border-right: 1px solid #fff;
+        }
+    .title-txt{
+       text-align: center;
+    font-weight: bold;
+    color: #35429f;
+    font-size: 25px;
+    margin-top: 15px;
+    }
+    .apply-company{
+       text-align: center;
+       display:none;
+    }
+    .company-content .txt-title{
+        font-weight: bold;
+        color: #35429f;
+        text-align:left;
+    }
+    .company-content{
+         
+    min-width: 350px;
+    background: #fff;
+    display: inline-block;
+    padding: 10px;
+
+    }
+    .company-content p{
+            font-weight: bold;
+            color: #fff;
+            background: #006699;
+            display: inline-block;
+            padding: 5px 10px;
+            margin-bottom: 10px;
+    }
+    .company-content .txt-content{
+        text-align: left;
+    }
+</style>
+<div class="content-box">
+    <p class="title-txt">Policy Details</p>
+    @if (Model != null && Model.Count > 0)
+    {
+        <table id="table1" class="table table-striped">
+            <thead>
+                <tr>
+                    <th style="width:5%">RequestId</th>
+                    <th style="width:5%">RequestDate</th>
+                    <th style="width:5%">Empno</th>
+                    <th style="width:5%">PolicyId</th>
+                    <th width="10%">PolicyName</th>
+                    <th width="10%">PolicyAcount</th>
+                    <th width="10%">EMI</th>
+                    <th width="10%">CompanyId</th>
+                    <th width="10%">CompanyName</th>
+                    <th width="10%"></th>
+                </tr>
+
+            </thead>
+            <tbody id="tblData">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.RequestId</td>
+                        <td>@item.RequestDate</td>
+                        <td>@item.Empno</td>
+                        <td>@item.PoicyId</td>
+                        <td>@(!string.IsNullOrEmpty(item.PolicyName) ? item.PolicyName : "")</td>
+                        <td>@(item.PolicyAmount.HasValue && item.PolicyAmount.Value > 0 ? item.PolicyAmount.Value : "")</td>
+                        <td>@(item.Emi.HasValue && item.Emi.Value > 0 ? item.Emi.Value : "")</td>
+                        <td>@(item.CompanyId.HasValue && item.CompanyId.Value > 0 ? item.CompanyId.Value : "")</td>
+                        <td>@(!string.IsNullOrEmpty(item.CompanyName) ? item.CompanyName : "")</td>
+                        <td>
+                            <a href="/check-for-status?id=@item.Empno&requestId=@item.RequestId" style="text-decoration: underline;">CheckForStatus</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+       @* <div class="apply-company">
+           
+            <div class="company-content">   
+                  <p>Company Details</p>
+            </div>
+        </div>
+        <a href="javascript:void(0)" style="    text-decoration: underline;color: #35429f;display:block;text-align:center;font-weight: bold;">Apply</a>*@
+    }
+</div>
+
+
+@section Scripts{
+    <script src="~/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".btn-cancel").click(function() {
+                window.location.reload();
+            })
+
+        })
+        function companyDetail(companyId) {
+            $.ajax({
+                url: '/CompanyDetails/GetComanyById',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    id: companyId
+                },
+                beforeSend: function() {
+                    Loading('show');
+                },
+                complete: function() {
+                    Loading('hiden');
+                },
+                success: function(response) {
+                    if (response.data != null) {
+                        $(".apply-company").show();
+                        var html = "";
+                        var item = response.data;
+                        html += "<div class='form-group row'>" +
+                                "<label class='col-sm-4 title txt-title'>CompanyId</label>" +
+                                "<label class='col-sm-8 title txt-content'>" + item.CompanyId + "</label>" +
+                                "</div>";
+                            html += "<div class='form-group row'>" +
+                                "<label class='col-sm-4 title txt-title'>CompanyName</label>" +
+                                "<label class='col-sm-8 title txt-content'>" + item.CompanyName + "</label>" +
+                                "</div>";
+                            html += "<div class='form-group row'>" +
+                                "<label class='col-sm-4 title txt-title'>Address</label>" +
+                                "<label class='col-sm-8 title txt-content'>" + item.Address + "</label>" +
+                                "</div>";
+                            html += "<div class='form-group row'>" +
+                                "<label class='col-sm-4 title txt-title'>Phone</label>" +
+                                "<label class='col-sm-8 title txt-content'>" + item.Phone + "</label>" +
+                                "</div>";
+                            html += "<div class='form-group row'>" +
+                                "<label class='col-sm-4 title txt-title'>CompanyURL</label>" +
+                                "<label class='col-sm-8 title txt-content'>" + item.CompanyURL + "</label>" +
+                                "</div>";
+                        $(".company-content").append(html);
+                    }
+                }
+            })
+        }
+    </script>
+    }
+
+
+

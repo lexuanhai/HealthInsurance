@@ -12,6 +12,8 @@ namespace TECH.Data.DatabaseEntity
 
         public DbSet<AdminLogin> AdminLogin { set; get; }
         public DbSet<CompanyDetails> CompanyDetails { set; get; }
+        public DbSet<Contract> Contract { set; get; }
+        public DbSet<FeedBack> FeedBack { set; get; }
         public DbSet<EmpRegister> EmpRegister { set; get; }
         public DbSet<HospitalInfo> HospitalInfo { set; get; }
         public DbSet<Policies> Policies { set; get; }

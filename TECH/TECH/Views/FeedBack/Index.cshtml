@@ -1,0 +1,142 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .box-form {
+        width: 500px;
+        margin: 60px auto;
+        padding-bottom: 60px;
+    }
+
+    .title {
+        color: #35429f;
+        font-weight: bold !important;
+    }
+
+    .title-box {
+        text-align: center;
+        padding: 5px 0px;
+        font-size: 25px;
+        color: #323ef8;
+    }
+
+    .btn-submit {
+        border: 1px solid #35429f;
+        color: #35429f;
+        font-weight: bold !important;
+        text-align: right;
+        padding: 1px 10px;
+        border-radius: 4px;
+        margin-top: 10px;
+    }
+
+    .txt-title {
+        padding-left: 20px;
+        display: flex;
+        align-items: center;
+    }
+</style>
+<div class="content-box">
+    <div class="box-form">
+        <form id="form-submit" action="#">
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title">User Name: </label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <input type="text" placeholder="User Name" id="UserName" name="UserName" class="form-control">
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title">Email Id</label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <input name="EmailId" id="EmailId" type="text" placeholder="Email Id" class="form-control">
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title"> FeedBack: </label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <textarea name="FeedBack" id="FeedBack" rows="2" placeholder="Feed Back" class="form-control"></textarea>
+                </div>
+                <!---->
+            </div>
+
+            <div class="form-group" style="margin-top: 20px;text-align: center;">
+                <button type="submit" class="btn-submit" style="float: right;margin-right: 35px;">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+                    <script src="~/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $(".btn-cancel").click(function () {
+                                window.location.reload();
+                            })
+                            $("#form-submit").validate({
+                                rules:
+                                {
+                                    UserName: {
+                                        required: true,
+                                    },
+                                    EmailId: {
+                                        required: true,
+                                    },
+                                    FeedBack: {
+                                        required: true,
+                                    }
+                                },
+                                messages:
+                                {
+                                        UserName: {
+                                            required: "Please enter your User Name",
+                                    },
+                                            EmailId: {
+                                            required: "Please enter your Email Id",
+                                    },
+                                        FeedBack: {
+                                            required: "Please enter your Feed Back",
+                                    }
+                                },
+                                submitHandler: function (form) {
+                                        var FeedBackModelView = {
+                                            UserName: $("#UserName").val(),
+                                            EmailId: $("#EmailId").val(),
+                                            FeedBack: $("#FeedBack").val()
+                                    }
+                                    $.ajax({
+                                                url: '/FeedBack/Add',
+                                        type: 'Post',
+                                        dataType: 'json',
+                                        data: {
+                                                    feedBackModelView: FeedBackModelView
+                                        },
+                                        beforeSend: function () {
+                                            Loading('show');
+                                        },
+                                        complete: function () {
+                                            Loading('hiden');
+                                        },
+                                        success: function (response) {
+                                            if (response.status) {
+                                                swal("Success", "Add successful", "success");
+                                            }
+                                            else {
+                                                swal("Error!", "Add failed", "error");
+                                            }
+                                        }
+                                    })
+                                }
+                            });
+
+                        })
+
+                    </script>
+    }
+
+

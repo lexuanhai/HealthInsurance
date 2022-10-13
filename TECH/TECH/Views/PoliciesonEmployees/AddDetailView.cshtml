@@ -1,0 +1,216 @@
+﻿
+@{
+    ViewData["Title"] = "AddDetailView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using TECH.Areas.Admin.Models
+@model PoliciesonEmployeesModelView
+<style>
+    .bootbox-close-button.close{
+        float: right;
+    border: unset;
+    }
+    .box-form {
+        width: 500px;
+        margin: 60px auto;
+        padding-bottom: 60px;
+            margin-top: 10px;
+    }
+
+    .title {
+        color: #35429f;
+        font-weight: bold !important;
+    }
+
+    .title-box {
+        text-align: center;
+        padding: 5px 0px;
+        font-size: 25px;
+        color: #323ef8;
+    }
+
+    .btn-submit {
+        border: 1px solid #35429f;
+        color: #35429f;
+        font-weight: bold !important;
+        text-align: right;
+        padding: 1px 10px;
+        border-radius: 4px;
+        margin-top: 10px;
+    }
+
+    .txt-title {
+        padding-left: 20px;
+        display: flex;
+        align-items: center;
+    }
+    .add-policy{
+            background: #fff;
+    padding: 0px 20px;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: unset !important;
+    color: #3d4d65;
+    opacity: 0.7;
+    }
+    .content-text{
+        justify-content: left !important;
+    }
+    .content-title{
+         justify-content: right !important;
+    }
+</style>
+<div class="content-box">
+    <p class="title title-box" style="margin-top: 20px;">He has a policy here is the details <a href="/add-policy-employee" class="add-policy">Add policy To Employee</a> </p>
+    <div class="box-form">
+        
+        <form id="form-submit" action="#">
+          
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title content-title">PolicyId:</label>
+                <label for="first-name-icon" class="col-sm-8 title txt-title content-text">@Model.PolcyId</label>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title content-title">PolicyName</label>
+                <label for="first-name-icon" class="col-sm-8 title txt-title content-text">@(!string.IsNullOrEmpty(Model.PolcyName) ? Model.PolcyName : "")</label>
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title content-title"> Policy Amount </label>
+                <label for="first-name-icon" class="col-sm-8 title txt-title content-text">@(Model.PolicyAmount.HasValue && Model.PolicyAmount.Value > 0? Model.PolicyAmount.Value : "") </label>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title content-title"> Policy Duration</label>
+                <label for="first-name-icon" class="col-sm-8 title txt-title content-text">@(Model.PolicyDuration.HasValue && Model.PolicyDuration.Value > 0 ? Model.PolicyDuration.Value : "") </label>
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title content-title">Policy EMI</label>
+                <label for="first-name-icon" class="col-sm-8 title txt-title content-text">@(Model.EMI.HasValue && Model.EMI.Value > 0 ? Model.EMI.Value : "") </label>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title content-title"> Policy Start Date</label>
+                <label for="first-name-icon" class="col-sm-8 title txt-title content-text">@(Model.PstartDate.HasValue ? Model.PstartDate.Value.ToString("dd/MM/yyyy") : "") </label>
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title content-title"> Policy End Date</label>
+                <label for="first-name-icon" class="col-sm-8 title txt-title content-text">@(Model.Penddate.HasValue ? Model.Penddate.Value.ToString("dd/MM/yyyy") : "") </label>
+            </div>
+            
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title content-title">Company Id:</label>
+                <label for="first-name-icon" class="col-sm-8 title txt-title content-text">@(Model.CompanyId.HasValue && Model.CompanyId.Value > 0 ? Model.CompanyId.Value : "") </label>
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title content-title"> Company Name </label>
+                <label for="first-name-icon" class="col-sm-8 title txt-title content-text">@(!string.IsNullOrEmpty(Model.CompanyName) ? Model.CompanyName : "")</label>
+                <!---->
+            </div>
+            
+            <div class="form-group" style="padding-left: 43px;margin-top: 30px;">
+                <button type="button" class="btn-submit" onclick="DeleteRequest(@Model.RequestId)">DeleteRequest</button>
+                <a href="/request-status">Back-------></a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".btn-cancel").click(function () {
+                window.location.reload();
+            })
+            //$(".confirm.btn.btn-lg.btn-primary").click(function(){
+            //     window.location.replace("/request-status");
+            //})
+            //$("#form-submit").validate({
+            //    rules:
+            //    {
+            //        CompanyName: {
+            //            required: true,
+            //        },
+            //        Address: {
+            //            required: true,
+            //        },
+            //        Phone: {
+            //            required: true,
+            //        },
+            //        CompanyURL: {
+            //            required: true,
+            //        }
+            //    },
+            //    messages:
+            //    {
+            //        CompanyName: {
+            //            required: "Please enter your Company Name",
+            //        },
+            //        Address: {
+            //            required: "Please enter your Address",
+            //        },
+            //        Phone: {
+            //            required: "Please enter your Phone No",
+            //        },
+            //        CompanyURL: {
+            //            required: "Please enter your Company URL",
+            //        }
+            //    },
+            //    submitHandler: function (form) {
+            //        var companyDetailsModelView = {
+            //            CompanyName: $("#CompanyName").val(),
+            //            Address: $("#Address").val(),
+            //            Phone: $("#Phone").val(),
+            //            CompanyURL: $("#CompanyURL").val()
+            //        }
+            //        $.ajax({
+            //            url: '/CompanyDetails/AddCompany',
+            //            type: 'Post',
+            //            dataType: 'json',
+            //            data: {
+            //                companyDetailsModelView: companyDetailsModelView
+            //            },
+            //            beforeSend: function () {
+            //                Loading('show');
+            //            },
+            //            complete: function () {
+            //                Loading('hiden');
+            //            },
+            //            success: function (response) {
+            //                if (response.status) {
+            //                    swal("Success", "Add successful", "success");
+            //                }
+            //                else {
+            //                    swal("Error!", "Add failed", "error");
+            //                }
+            //            }
+            //        })
+            //    }
+            //});
+        })
+        function DeleteRequest(id) {
+            if (id != null && id != "") {
+                tedu.confirm('Are you sure you want to delete Request?', function () {
+                    $.ajax({
+                        type: "POST",
+                        url: "/PolicyRequestDetails/Delete",
+                        data: { id: id },
+                        beforeSend: function () {
+                            // tedu.start//Loading();
+                        },
+                        success: function () {
+                            tedu.notify('Successful delete', 'success');
+                            window.location.replace("/request-status");
+                        },
+                        error: function () {
+                            tedu.notify('Has an error', 'error');
+                            tedu.stop//Loading();
+                        }
+                    });
+                });
+            }
+        }
+    </script>
+    }
+

@@ -31,7 +31,15 @@ builder.Services.AddScoped<IPoliciesRepository, PoliciesRepository>();
 builder.Services.AddScoped<IEmpRegisterRepository, EmpRegisterRepository>();
 builder.Services.AddScoped<ICompanyDetailsRepository, CompanyDetailsRepository>();
 builder.Services.AddScoped<IAdminLoginRepository, AdminLoginRepository>();
+builder.Services.AddScoped<IPolicyRequestDetailsRepository, PolicyRequestDetailsRepository>();
+builder.Services.AddScoped<IFeedBackRepository, FeedBackRepository>();
+builder.Services.AddScoped<IContractRepository, ContractRepository>();
+builder.Services.AddScoped<IPoliciesonEmployeesRepository, PoliciesonEmployeesRepository>();
 
+builder.Services.AddScoped<IPoliciesonEmployeesService,PoliciesonEmployeesService>();
+builder.Services.AddScoped<IContractService, ContractService>();
+builder.Services.AddScoped<IFeedBackService, FeedBackService>();
+builder.Services.AddScoped<IPolicyRequestDetailsService, PolicyRequestDetailsService>();
 builder.Services.AddScoped<IAdminLoginService, AdminLoginService>();
 builder.Services.AddScoped<IEmpRegisterService, EmpRegisterService>();
 builder.Services.AddScoped<IPoliciesService, PoliciesService>();
@@ -66,6 +74,23 @@ app.UseEndpoints(endpoints =>
       pattern: "/login-employ",
       defaults: new { controller = "Acount", action = "LoginEmployView" });
     endpoints.MapControllerRoute(
+    name: "aboutus",
+    pattern: "/about-us",
+    defaults: new { controller = "Home", action = "AboutUs" });
+    endpoints.MapControllerRoute(
+  name: "contactus",
+  pattern: "/contact-us",
+  defaults: new { controller = "Contract", action = "index" });
+    endpoints.MapControllerRoute(
+name: "feedback",
+pattern: "/feed-back",
+defaults: new { controller = "FeedBack", action = "Index" });
+    
+    endpoints.MapControllerRoute(
+   name: "admin",
+   pattern: "/admin",
+   defaults: new { controller = "Home", action = "AdminView" });
+    endpoints.MapControllerRoute(
      name: "DangNhapAdmin",
      pattern: "/login-admin",
      defaults: new { controller = "Acount", action = "LoginAdminView" });
@@ -85,7 +110,7 @@ app.UseEndpoints(endpoints =>
 
     endpoints.MapControllerRoute(
     name: "policydetails",
-    pattern: "/policy-details",
+    pattern: "/policy-details-admin",
     defaults: new { controller = "Policies", action = "Index" });
 
     endpoints.MapControllerRoute(
@@ -97,15 +122,47 @@ app.UseEndpoints(endpoints =>
    name: "AddCompany",
    pattern: "/add-company",
    defaults: new { controller = "CompanyDetails", action = "AddView" });
+
+    endpoints.MapControllerRoute(
+ name: "employee",
+ pattern: "/employee",
+ defaults: new { controller = "Employee", action = "Index" });
+
     endpoints.MapControllerRoute(
   name: "employee-list",
   pattern: "/employee-list",
   defaults: new { controller = "Employee", action = "ListEmployee" });
 
     endpoints.MapControllerRoute(
+name: "employee-resgister",
+pattern: "/employee-resgister",
+defaults: new { controller = "Employee", action = "ResgisterEmployee" });
+
+    endpoints.MapControllerRoute(
+name: "requeststatus",
+pattern: "/request-status",
+defaults: new { controller = "PolicyRequestDetails", action = "GetAllPolicyRequest" });
+
+    endpoints.MapControllerRoute(
+name: "home",
+pattern: "/home",
+defaults: new { controller = "Home", action = "Index" });
+
+
+   
+    endpoints.MapControllerRoute(
   name: "addpolicy",
   pattern: "/add-policy",
   defaults: new { controller = "Policies", action = "AddView" });
+    endpoints.MapControllerRoute(
+ name: "checkforstatus",
+ pattern: "/check-for-status/{id?}",
+ defaults: new { controller = "PoliciesonEmployees", action = "AddDetailView" });
+
+    endpoints.MapControllerRoute(
+name: "addpolicyemployee",
+pattern: "/add-policy-employee",
+defaults: new { controller = "PoliciesonEmployees", action = "AddView" });
 
     endpoints.MapControllerRoute(
         name: "default",

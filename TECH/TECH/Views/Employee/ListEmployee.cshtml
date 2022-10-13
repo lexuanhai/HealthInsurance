@@ -93,7 +93,7 @@
                         <td>@item.LastName</td>
                         <td>@item.ContactNo</td>
                         <td>@item.Address</td>
-                        <td>@(item.JoinDate.HasValue?item.JoinDate.Value.ToString("mm/dd/yyyy") : "" )</td>
+                        <td>@(item.JoinDate.HasValue ? item.JoinDate.Value.ToString("dd/MM/yyyy") : "")</td>
                         <td>@item.Designation</td>
                         <td>@item.Salary</td>
                         <td>

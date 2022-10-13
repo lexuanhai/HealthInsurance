@@ -21,6 +21,7 @@ namespace TECH.Service
         bool UpdateChangePassword(int id,string newpassword);
         bool Deleted(int id);
         List<EmpRegisterModelView> GetAllEmployee();
+        int Add(EmpRegisterModelView view);
     }
 
     public class EmpRegisterService : IEmpRegisterService
@@ -119,6 +120,42 @@ namespace TECH.Service
             return false;
            
         }
+
+        public int Add(EmpRegisterModelView view)
+        {
+            try
+            {
+                if (view != null)
+                {
+                    var appUser = new EmpRegister
+                    {
+                        FirstName = view.FirstName,
+                        LastName = view.LastName,
+                        UserName = view.UserName,
+                        PassWord = view.PassWord,
+                        Address = view.Address,
+                        ContactNo = view.ContactNo,
+                        State = view.State,
+                        City = view.City,
+                        Designation = view.Designation,
+                        JoinDate = view.JoinDate,
+                        Salary = view.Salary
+                };
+                    _empRegisterRepository.Add(appUser);
+
+                    Save();
+
+                    return appUser.Empno;
+                }
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+            return 0;
+
+        }
+
         public List<EmpRegisterModelView> GetAllEmployee()
         {
             var data = _empRegisterRepository.FindAll().Select(p => new EmpRegisterModelView()

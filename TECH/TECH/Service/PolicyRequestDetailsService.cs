@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,9 @@ namespace TECH.Service
     {
         void Save();
         int Add(PolicyRequestDetailsModelView view);
-        //List<PoliciesModelView> GetPoliciesByEmployId(int employId);
-        //List<PoliciesModelView> GetAllPolicies();
+        List<PolicyRequestDetailsModelView> GetAllPoliciesRequest();
+        PolicyRequestDetailsModelView GetPoliciesRequestId(int Id);
+        bool Deleted(int id);
     }
 
     public class PolicyRequestDetailsService : IPolicyRequestDetailsService
@@ -63,52 +65,66 @@ namespace TECH.Service
             return 0;
 
         }
-        //public List<PoliciesModelView> GetPoliciesByEmployId(int employId)
-        //{
-        //    if (employId > 0)
-        //    {
-        //        var model = _empRegisterRepository.FindAll().Where(e=>e.Empno == employId).FirstOrDefault();
-        //        if (model != null && model.PolicyId > 0)
-        //        {
-        //            var data = _policiesRepository.FindAll().Where(p => p.PolicyId == model.PolicyId).Select(p=> new PoliciesModelView()
-        //            {
-        //                PolicyId = p.PolicyId,
-        //                PolicyName = p.PolicyName,
-        //                PolicyDesc = p.PolicyDesc,
-        //                Amount = p.Amount,
-        //                Emi = p.Emi,
-        //                CompanyId = p.CompanyId,
-        //                HospitalId = p.HospitalId,
-        //            }).ToList();
-        //            return data;
-        //        }
-        //    }
-        //    return null;
-        //}
-        //public List<PoliciesModelView> GetAllPolicies()
-        //{
-        //    var data = _policiesRepository.FindAll().Select(p => new PoliciesModelView()
-        //    {
-        //        PolicyId = p.PolicyId,
-        //        PolicyName = p.PolicyName,
-        //        PolicyDesc = p.PolicyDesc,
-        //        Amount = p.Amount,
-        //        Emi = p.Emi,
-        //        CompanyId = p.CompanyId,
-        //        HospitalId = p.HospitalId,
-        //    }).ToList();
-        //    if (data != null && data.Count> 0)
-        //    {
-        //        foreach (var item in data)
-        //        {
-        //            if (item.CompanyId.HasValue && item.CompanyId.Value > 0)
-        //            {
-        //                item.CompanyDetails = _companyDetailsService.GetByid(item.CompanyId.Value);
-        //            }
-        //        }
-        //    }
-        //    return data;
-        //}
+
+        public PolicyRequestDetailsModelView GetPoliciesRequestId(int id)
+        {
+            if (id > 0)
+            {
+                var data = _policyRequestDetailsRepository.FindAll().Where(p => p.RequestId == id).Select(p => new PolicyRequestDetailsModelView()
+                {
+                    RequestId = p.RequestId,
+                    PoicyId = p.PoicyId,
+                    RequestDate = p.RequestDate,
+                    PolicyName = p.PolicyName,
+                    Empno = p.Empno,
+                    PolicyAmount = p.PolicyAmount,
+                    Emi = p.Emi,
+                    CompanyId = p.CompanyId,
+                    CompanyName = p.CompanyName,
+                    Status = p.Status
+                }).FirstOrDefault();
+                return data;
+            }
+            return null;
+        }
+
+        public List<PolicyRequestDetailsModelView> GetAllPoliciesRequest()
+        {
+            var data = _policyRequestDetailsRepository.FindAll().Select(p => new PolicyRequestDetailsModelView()
+            {
+                RequestId =p.RequestId,
+                PoicyId = p.PoicyId,
+                RequestDate = p.RequestDate,
+                PolicyName = p.PolicyName,
+                Empno = p.Empno,
+                PolicyAmount = p.PolicyAmount,
+                Emi = p.Emi,
+                CompanyId = p.CompanyId,
+                CompanyName = p.CompanyName,
+                Status = p.Status
+            }).ToList();
+            
+            return data;
+        }
+        public bool Deleted(int id)
+        {
+            try
+            {
+                var dataServer = _policyRequestDetailsRepository.FindAll().Where(e => e.RequestId == id).FirstOrDefault();
+                if (dataServer != null)
+                {
+                    _policyRequestDetailsRepository.Remove(dataServer);
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+            return false;
+        }
 
     }
 }

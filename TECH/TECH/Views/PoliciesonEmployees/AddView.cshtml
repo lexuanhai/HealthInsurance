@@ -1,0 +1,300 @@
+﻿
+@{
+    ViewData["Title"] = "AddView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using TECH.Areas.Admin.Models
+@model PoliciesonEmployeesModelView
+
+<style>
+    .box-form {
+        width: 500px;
+        margin: 60px auto;
+        padding-bottom: 60px;
+    }
+
+    .title {
+        color: #35429f;
+        font-weight: bold !important;
+    }
+
+    .title-box {
+        text-align: center;
+        padding: 5px 0px;
+        font-size: 25px;
+        color: #323ef8;
+    }
+
+    .btn-submit {
+        border: 1px solid #35429f;
+        color: #35429f;
+        font-weight: bold !important;
+        text-align: right;
+        padding: 1px 10px;
+        border-radius: 4px;
+        margin-top: 10px;
+    }
+
+    .txt-title {
+        padding-left: 20px;
+        display: flex;
+        align-items: center;
+    }
+</style>
+<div class="content-box">
+    <div class="box-form">
+        <form id="form-submit" action="#">
+            <p class="title title-box">Add Policy On Employee</p>
+             <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title">Emp Id:</label>
+                 <div class="col-sm-8" style="padding-right: 45px;">
+                    <input type="text" placeholder="Emp Id" id="EmpId" name="EmpId" class="form-control" autocomplete="off">
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title">PolicyId:</label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <select id="PolicySelect" class="form-control">
+                        <option value="">Choose Policy Id</option>
+                    </select>
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title">PolicyName</label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <input type="text" placeholder="Policy Name" id="PolicyName" name="PolicyName" class="form-control" autocomplete="off">
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title"> Policy Amount </label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <input type="number" placeholder="Policy Amount" id="PolicyAmount" name="PolicyAmount" class="form-control">
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title">Policy EMI</label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <input type="number" placeholder="EMI" id="EMI" name="EMI" class="form-control" autocomplete="off">
+
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title"> Policy Start Date</label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <input type="text" placeholder="Start Date" id="StartDate" name="StartDate" class="form-control customdate" autocomplete="off">
+
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title"> Policy End Date</label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <input type="text" placeholder="End Date" id="EndDate" name="EndDate" class="form-control customdate" autocomplete="off">
+
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title"> Policy Duration</label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <input type="text" placeholder="Duration" id="Duration" name="Duration" class="form-control" autocomplete="off">
+
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title">Company Id:</label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <select id="CompanySelect" class="form-control">
+                        <option value="">Choose Company</option>
+                    </select>
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title"> Company Name </label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <input type="text" placeholder="Company Name" id="CompanyName" name="CompanyName" class="form-control">
+
+                </div>
+                <!---->
+            </div>
+            <div class="form-group row">
+                <label for="first-name-icon" class="col-sm-4 title txt-title">Medical Id:</label>
+                <div class="col-sm-8" style="padding-right: 45px;">
+                    <input type="number" placeholder="Medical Id" id="MedicalId" name="MedicalId" class="form-control" autocomplete="off">
+
+                </div>
+                <!---->
+            </div>
+            <div class="form-group" style="text-align: center;margin-top: 30px;">
+                <button type="submit" class="btn-submit">ADD</button>
+                <button type="button" class="btn-submit btn-cancel">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".btn-cancel").click(function () {
+                window.location.reload();
+            })
+             $(".customdate").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'dd/mm/yy',
+                formatSubmit: 'yyyy/mm/dd'
+            });
+            GetPolicyCompany();
+            GetAllCompany();
+            $("#form-submit").validate({
+                rules:
+                {
+                    Empno: {
+                        required: true,
+                    },
+                    PolcyId: {
+                        required: true,
+                    },
+                    PolcyName: {
+                        required: true,
+                    },
+                    PolicyAmount: {
+                        required: true,
+                    },
+                    PolicyDuration: {
+                        required: true,
+                    },
+                    CompanyName: {
+                        required: true,
+                    }
+                },
+                messages:
+                {
+                    Empno: {
+                        required: "Please enter your Emp no",
+                    },
+                    PolcyId: {
+                        required: "Please enter your Polcy Id",
+                    },
+                    PolcyName: {
+                        required: "Please enter your Polcy Name",
+                    },
+                    PolicyAmount: {
+                        required: "Please enter your Policy Amount",
+                    },
+                     PolicyDuration: {
+                        required: "Please enter your Policy Duration",
+                    },
+                     CompanyName: {
+                        required: "Please enter your Company Name",
+                    }
+                },
+                submitHandler: function (form) {
+
+                      var Startdate = $("#StartDate").datepicker('getDate');
+                    Startdate = Startdate.getFullYear() + "-" + (Startdate.getMonth() + 1) + "-" + Startdate.getDate();
+                    var Enddate = $("#EndDate").datepicker('getDate');
+                    Enddate = Enddate.getFullYear() + "-" + (Enddate.getMonth() + 1) + "-" + Enddate.getDate();
+
+                    var companyDetailsModelView = {
+                        Empno: $("#EmpId").val(),
+                        PolcyId: $("#PolicySelect").val(),
+                        PolcyName: $("#PolcyName").val(),
+                        PolicyAmount: $("#PolicyAmount").val(),
+                        PolicyDuration: $("#Duration").val(),
+                        EMI: $("#EMI").val(),
+                        PstartDate: Startdate,
+                        Penddate: Enddate,
+                        CompanyId: $("#CompanySelect").val(),
+                        CompanyName: $("#CompanyName").val(),
+                        Medical: $("#MedicalId").val(),
+                    }
+                    $.ajax({
+                        url: '/PoliciesonEmployees/Add',
+                        type: 'Post',
+                        dataType: 'json',
+                        data: {
+                            policiesonEmployeesModelView: companyDetailsModelView
+                        },
+                        beforeSend: function () {
+                            Loading('show');
+                        },
+                        complete: function () {
+                            Loading('hiden');
+                        },
+                        success: function (response) {
+                            if (response.status) {
+                                swal("Success", "Add successful", "success");
+                            }
+                            else {
+                                swal("Error!", "Add failed", "error");
+                            }
+                        }
+                    })
+                }
+            });
+        })
+        function GetPolicyCompany() {
+            $.ajax({
+                url: '/Policies/GetAllPolicy',
+                type: 'GET',
+                dataType: 'json',
+                beforeSend: function () {
+                    //Loading('show');
+                },
+                complete: function () {
+                    //Loading('hiden');
+                },
+                success: function (response) {
+                    if (response.data != null && response.data.length > 0) {
+                        var html = "<option value =\"\">Choose Policy Id</option>";
+                        if (response.data != null && response.data.length > 0) {
+                            for (var i = 0; i < response.data.length; i++) {
+                                var item = response.data[i];
+                                html += "<option value =" + item.PolicyId + ">" + item.PolicyId + "</option>";
+                            }
+                        }
+                        $("#PolicySelect").html(html);
+                    }
+                }
+            })
+        }
+        function GetAllCompany() {
+            $.ajax({
+                url: '/CompanyDetails/GetAll',
+                type: 'GET',
+                dataType: 'json',
+                beforeSend: function () {
+                    //Loading('show');
+                },
+                complete: function () {
+                    //Loading('hiden');
+                },
+                success: function (response) {
+                    if (response.data != null && response.data.length > 0) {
+                        var html = "<option value =\"\">Choose Company</option>";
+                        if (response.data != null && response.data.length > 0) {
+                            for (var i = 0; i < response.data.length; i++) {
+                                var item = response.data[i];
+                                html += "<option value =" + item.CompanyId + ">" + item.CompanyName + "</option>";
+                            }
+                        }
+                        $("#CompanySelect").html(html);
+                    }
+                }
+            })
+        }
+    </script>
+    }
+
+
+

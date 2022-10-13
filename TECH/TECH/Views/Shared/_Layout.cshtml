@@ -44,7 +44,9 @@
     <link rel="stylesheet" href="/public/admin/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="/public/admin/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="/public/admin/css/app.css">
+    <link href="~/admin/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
     <link href="~/public/customer/bootstrap-sweetalert-master/dist/sweetalert.css" rel="stylesheet" />
+    <link href="~/admin/plugins/datetimepicker-master/build/jquery.datetimepicker.min.css" rel="stylesheet" />
     <style>
         .back-ground-image {
             background: url(../image-side/cover.png);
@@ -199,7 +201,7 @@
                         <ul class="leve-1">
                             <li class="fisrt">
                                 <span>|||</span>
-                                <a href="/Employ">Home</a>
+                                <a href="/employee">Home</a>
                             </li>
                             <li>
                                 <a href="#">Employee Details</a>
@@ -215,7 +217,7 @@
                                     <li><a href="/policy-details">Policy Details</a></li>
                                 </ul>*@
                             </li>
-                            <li><a href="#">Order for insurance </a></li>
+                            <li><a href="/order-for-insurance">Order for insurance </a></li>
                             <li class="last">
 
                                 <a href="javascript:void(0)" class="log-out">Log Out</a>
@@ -228,32 +230,33 @@
                         <ul class="leve-1">
                             <li class="fisrt">
                                 <span>|||</span>
-                                <a href="/Employ">Home</a>
+                                <a href="/admin">Home</a>
                             </li>
                             <li>
-                                <a href="#">Add Resource</a>
+                                <a href="javascript:void(0)">Add Resource</a>
                                 <ul class="leve-2">
                                     <li><a href="/add-company">Add Company</a></li>
                                     <li><a href="/add-policy">Add Policy </a></li>
                                 </ul>
                             </li>
                             <li>
-                                <a href="#">Employee Support</a>
+                                <a href="javascript:void(0)">Employee Support</a>
                                 <ul class="leve-2">
                                     <li><a href="/employee-list">Employee Detail</a></li>
-                                    <li><a href="/employee-register">Employee Register </a></li>
+                                    <li><a href="/employee-resgister">Employee Resgister </a></li>
+                                    <li><a href="/add-policy-employee">Add Policy Employee </a></li>
                                 </ul>
                             </li>
-                            <li>
-                                <a href="#">Search</a>
-                                <ul class="leve-2">
-                                    <li><a href="/update-employee">Update Employee</a></li>
+                            <li style="position:unset">
+                                <a href="javascript:void(0)">Search</a>
+                                @*<ul class="leve-2" style="left:unset;min-width: 200px; width: 200px;">
+                                    <li><a href="/policy-request">Update Employee</a></li>
                                     <li><a href="/change-password">Change Password </a></li>
                                     <li><a href="/policy-details">Policy Details</a></li>
-                                </ul>
+                                </ul>*@
                             </li>
                             <li>
-                                <a href="#">Request Status</a>
+                                <a href="/request-status">Request Status</a>
                             </li>
                             <li class="last">
 
@@ -267,14 +270,14 @@
                         <ul class="leve-1">
                             <li class="fisrt">
                                 <span>|||</span>
-                                <a href="#">Home</a>
+                                <a href="/home">Home</a>
                             </li>
                             <li>
-                                <a href="#">About Us</a>
+                                <a href="/about-us">About Us</a>
                             </li>
-                            <li><a href="#">Contact Us</a></li>
-                            <li><a href="#">FeedBack</a></li>
-                            <li><a href="#">News</a></li>
+                            <li><a href="/contact-us">Contact Us</a></li>
+                            <li><a href="/feed-back">FeedBack</a></li>
+                            <li><a href="javascript:void(0)">News</a></li>
                             <li><a href="/login-employ">Member</a></li>
                             <li class="last">
 
@@ -287,7 +290,7 @@
                 </div>
                 @RenderBody()
 
-                <p style="text-align:center">© All Right Reserved</p>
+                <p style="text-align:center;    background: #336666; color: #fff;  padding: 6px 0px;">© All Right Reserved</p>
 
             </div>
 
@@ -306,27 +309,40 @@
     @*<script src="/public/admin/js/main.js"></script>*@
     <script src="~/share/tedu.js"></script>
     <script src="~/js/shared/shared.js"></script>
+    @*<script src="/public/customer/js/bootstrap.min.js"></script>*@
+    <script src="~/admin/plugins/jquery-ui/jquery-ui.min.js"></script>
 
     <script src="~/admin/plugins/jquery.twbsPagination.min.js"></script>
     <script src="~/public/customer/bootstrap-sweetalert-master/dist/sweetalert.min.js"></script>
+    <script src="~/admin/plugins/datetimepicker-master/build/jquery.datetimepicker.min.js"></script>
     @RenderSection("Scripts", required: false)
     <script type="text/javascript">
         $(document).ready(function () {
+            var pathUrl = window.location.pathname;
+            pathUrl = pathUrl.replace("/","");
+            var roleEmploy = ["policy-details", "change-password", "order-for-insurance", "employee", "change-password"];
+            var roleAdmin = ["admin", "add-company", "add-policy", "employee-list", "employee-resgister", "request-status", "policy-request", "add-policy-employee", "check-for-status"];
+            var login = @isLogin;
+            if (login == 1 && roleEmploy.indexOf(pathUrl) >=0) {
+                //if(pathUrl !="" && pathUrl !="employee"){
+                //    window.location.replace("/employee");
+                //}
+                //window.location.replace("/"+pathUrl);
+            }
+            else if(login == 2){
+
+            }
+            else{
+                if(pathUrl !="" && (roleEmploy.indexOf(pathUrl) >=0 || roleAdmin.indexOf(pathUrl) >=0)){
+                    if(pathUrl !="home"){
+                        window.location.replace("/home");
+                    }
+                    
+                }
+            }
+
             $(".log-out").click(function(){
                 LogOut();
-                //swal({
-                //    title: "Are you sure you want to log out?",
-                //    icon: "warning",
-                //    buttons: true,
-                //    dangerMode: true,
-                //})
-                //    .then((willDelete) => {
-                //        if (willDelete) {
-                //            LogOut();
-                //        }else{
-
-                //        }
-                //    });
             })
             
         })
