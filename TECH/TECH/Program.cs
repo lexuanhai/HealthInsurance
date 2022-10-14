@@ -107,11 +107,20 @@ defaults: new { controller = "FeedBack", action = "Index" });
     name: "changepassword",
     pattern: "/change-password",
     defaults: new { controller = "Employee", action = "ChangePassWord" });
+    endpoints.MapControllerRoute(
+ name: "news",
+ pattern: "/news",
+ defaults: new { controller = "Home", action = "New" });
 
     endpoints.MapControllerRoute(
-    name: "policydetails",
+    name: "policydetailsadmin",
     pattern: "/policy-details-admin",
     defaults: new { controller = "Policies", action = "Index" });
+
+    endpoints.MapControllerRoute(
+  name: "policydetails",
+  pattern: "/policy-details",
+  defaults: new { controller = "Policies", action = "Index" });
 
     endpoints.MapControllerRoute(
     name: "orderforinsurance",

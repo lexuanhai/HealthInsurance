@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Http
 @using Newtonsoft.Json
-@using TECH.Areas.Admin.Models
+@using TECH.Models
 @{
     var userString = Context.Session.GetString("UserInfor");
     var userAdminString = Context.Session.GetString("UserAdminInfor");
@@ -211,12 +211,12 @@
                                     <li><a href="/policy-details">Policy Details</a></li>
                                 </ul>
                             </li>
-                            <li>
+                           @* <li>
                                 <a href="/policy-details">Search</a>
                                @* <ul class="leve-2">
                                     <li><a href="/policy-details">Policy Details</a></li>
-                                </ul>*@
-                            </li>
+                                </ul>
+                            </li>*@
                             <li><a href="/order-for-insurance">Order for insurance </a></li>
                             <li class="last">
 
@@ -247,14 +247,14 @@
                                     <li><a href="/add-policy-employee">Add Policy Employee </a></li>
                                 </ul>
                             </li>
-                            <li style="position:unset">
+                           @* <li style="position:unset">
                                 <a href="javascript:void(0)">Search</a>
-                                @*<ul class="leve-2" style="left:unset;min-width: 200px; width: 200px;">
+                                <ul class="leve-2" style="left:unset;min-width: 200px; width: 200px;">
                                     <li><a href="/policy-request">Update Employee</a></li>
                                     <li><a href="/change-password">Change Password </a></li>
                                     <li><a href="/policy-details">Policy Details</a></li>
-                                </ul>*@
-                            </li>
+                                </ul>
+                            </li>*@
                             <li>
                                 <a href="/request-status">Request Status</a>
                             </li>
@@ -277,7 +277,7 @@
                             </li>
                             <li><a href="/contact-us">Contact Us</a></li>
                             <li><a href="/feed-back">FeedBack</a></li>
-                            <li><a href="javascript:void(0)">News</a></li>
+                            <li><a href="/news">News</a></li>
                             <li><a href="/login-employ">Member</a></li>
                             <li class="last">
 

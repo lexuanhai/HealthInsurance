@@ -3,7 +3,7 @@
     ViewData["Title"] = "AddDetailView";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@using TECH.Areas.Admin.Models
+@using TECH.Models
 @model PoliciesonEmployeesModelView
 <style>
     .bootbox-close-button.close{
@@ -68,48 +68,50 @@
           
             <div class="form-group row">
                 <label for="first-name-icon" class="col-sm-4 title txt-title content-title">PolicyId:</label>
-                <label for="first-name-icon" class="col-sm-8 title txt-title content-text">@Model.PolcyId</label>
+                <label for="first-name-icon" class="col-sm-8 title txt-title content-text">@(Model != null? Model.PolcyId:"")</label>
                 <!---->
             </div>
             <div class="form-group row">
                 <label for="first-name-icon" class="col-sm-4 title txt-title content-title">PolicyName</label>
-                <label for="first-name-icon" class="col-sm-8 title txt-title content-text">@(!string.IsNullOrEmpty(Model.PolcyName) ? Model.PolcyName : "")</label>
+                <label for="first-name-icon" class="col-sm-8 title txt-title content-text">@(!string.IsNullOrEmpty(Model.PolcyName) && Model != null? Model.PolcyName : "")</label>
             </div>
             <div class="form-group row">
                 <label for="first-name-icon" class="col-sm-4 title txt-title content-title"> Policy Amount </label>
-                <label for="first-name-icon" class="col-sm-8 title txt-title content-text">@(Model.PolicyAmount.HasValue && Model.PolicyAmount.Value > 0? Model.PolicyAmount.Value : "") </label>
+                <label for="first-name-icon" class="col-sm-8 title txt-title content-text">@(Model.PolicyAmount.HasValue && Model.PolicyAmount.Value > 0 && Model != null? Model.PolicyAmount.Value : "") </label>
                 <!---->
             </div>
             <div class="form-group row">
                 <label for="first-name-icon" class="col-sm-4 title txt-title content-title"> Policy Duration</label>
-                <label for="first-name-icon" class="col-sm-8 title txt-title content-text">@(Model.PolicyDuration.HasValue && Model.PolicyDuration.Value > 0 ? Model.PolicyDuration.Value : "") </label>
+                <label for="first-name-icon" class="col-sm-8 title txt-title content-text">@(Model.PolicyDuration.HasValue && Model.PolicyDuration.Value > 0  && Model != null? Model.PolicyDuration.Value : "") </label>
             </div>
             <div class="form-group row">
                 <label for="first-name-icon" class="col-sm-4 title txt-title content-title">Policy EMI</label>
-                <label for="first-name-icon" class="col-sm-8 title txt-title content-text">@(Model.EMI.HasValue && Model.EMI.Value > 0 ? Model.EMI.Value : "") </label>
+                <label for="first-name-icon" class="col-sm-8 title txt-title content-text">@(Model.EMI.HasValue && Model.EMI.Value > 0 && Model != null ? Model.EMI.Value : "") </label>
                 <!---->
             </div>
             <div class="form-group row">
                 <label for="first-name-icon" class="col-sm-4 title txt-title content-title"> Policy Start Date</label>
-                <label for="first-name-icon" class="col-sm-8 title txt-title content-text">@(Model.PstartDate.HasValue ? Model.PstartDate.Value.ToString("dd/MM/yyyy") : "") </label>
+                <label for="first-name-icon" class="col-sm-8 title txt-title content-text">@(Model.PstartDate.HasValue && Model != null ? Model.PstartDate.Value.ToString("dd/MM/yyyy") : "") </label>
             </div>
             <div class="form-group row">
                 <label for="first-name-icon" class="col-sm-4 title txt-title content-title"> Policy End Date</label>
-                <label for="first-name-icon" class="col-sm-8 title txt-title content-text">@(Model.Penddate.HasValue ? Model.Penddate.Value.ToString("dd/MM/yyyy") : "") </label>
+                <label for="first-name-icon" class="col-sm-8 title txt-title content-text">@(Model.Penddate.HasValue && Model != null ? Model.Penddate.Value.ToString("dd/MM/yyyy") : "") </label>
             </div>
             
             <div class="form-group row">
                 <label for="first-name-icon" class="col-sm-4 title txt-title content-title">Company Id:</label>
-                <label for="first-name-icon" class="col-sm-8 title txt-title content-text">@(Model.CompanyId.HasValue && Model.CompanyId.Value > 0 ? Model.CompanyId.Value : "") </label>
+                <label for="first-name-icon" class="col-sm-8 title txt-title content-text">@(Model.CompanyId.HasValue && Model.CompanyId.Value > 0 && Model != null ? Model.CompanyId.Value : "") </label>
             </div>
             <div class="form-group row">
                 <label for="first-name-icon" class="col-sm-4 title txt-title content-title"> Company Name </label>
-                <label for="first-name-icon" class="col-sm-8 title txt-title content-text">@(!string.IsNullOrEmpty(Model.CompanyName) ? Model.CompanyName : "")</label>
+                <label for="first-name-icon" class="col-sm-8 title txt-title content-text">@(!string.IsNullOrEmpty(Model.CompanyName) && Model != null ? Model.CompanyName : "")</label>
                 <!---->
             </div>
             
             <div class="form-group" style="padding-left: 43px;margin-top: 30px;">
-                <button type="button" class="btn-submit" onclick="DeleteRequest(@Model.RequestId)">DeleteRequest</button>
+                if(Model != null){
+                     <button type="button" class="btn-submit" onclick="DeleteRequest(@Model.RequestId)">DeleteRequest</button>
+                }               
                 <a href="/request-status">Back-------></a>
             </div>
         </form>

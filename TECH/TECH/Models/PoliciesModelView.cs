@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TECH.Areas.Admin.Models
+namespace TECH.Models
 {
     public class PoliciesModelView
     {

@@ -1558,7 +1558,6 @@ C:\hoc tap\HealthInsurance\TECH\TECH\obj\Debug\net6.0\TECH.RazorAssemblyInfo.cac
 C:\hoc tap\HealthInsurance\TECH\TECH\obj\Debug\net6.0\TECH.RazorAssemblyInfo.cs
 C:\hoc tap\HealthInsurance\TECH\TECH\obj\Debug\net6.0\staticwebassets.build.json
 C:\hoc tap\HealthInsurance\TECH\TECH\obj\Debug\net6.0\staticwebassets.development.json
-C:\hoc tap\HealthInsurance\TECH\TECH\obj\Debug\net6.0\scopedcss\Areas\Admin\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\hoc tap\HealthInsurance\TECH\TECH\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\hoc tap\HealthInsurance\TECH\TECH\obj\Debug\net6.0\scopedcss\bundle\TECH.styles.css
 C:\hoc tap\HealthInsurance\TECH\TECH\obj\Debug\net6.0\scopedcss\projectbundle\TECH.bundle.scp.css

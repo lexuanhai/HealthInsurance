@@ -30,6 +30,10 @@ namespace TECH.Controllers
         {
             return View();
         }
+        public IActionResult New()
+        {
+            return View();
+        }
         public IActionResult AboutUs()
         {
             return View();

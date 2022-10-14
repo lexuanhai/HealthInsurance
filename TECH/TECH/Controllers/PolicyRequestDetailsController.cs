@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Diagnostics;
-using TECH.Areas.Admin.Models;
 using TECH.Models;
 using TECH.Service;
 
